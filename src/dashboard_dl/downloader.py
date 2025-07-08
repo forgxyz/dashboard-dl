@@ -1300,12 +1300,6 @@ class DashboardDownloader:
             else:
                 chart_section.append(f"- **SQL Query:** Not publicly accessible")
             
-            csv_file = output_dir / "assets" / f"{query_id}.csv"
-            if csv_file.exists():
-                chart_section.append(f"- **Resultset:** `assets/{query_id}.csv`")
-            else:
-                chart_section.append(f"- **Resultset:** Not available for download")
-            
             chart_section.append(f"- **Query ID:** `{query_id}`")
             
             # Add execution timestamps if available
@@ -1316,7 +1310,6 @@ class DashboardDownloader:
                 chart_section.append(f"- **Result Last Accessed:** {query_metadata['result_last_accessed']}")
         else:
             chart_section.append(f"- **SQL Query:** No query ID available")
-            chart_section.append(f"- **Resultset:** No query ID available")
         
         return chart_section
     
