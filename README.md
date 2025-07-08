@@ -76,3 +76,53 @@ uv run dashboard-dl https://flipsidecrypto.xyz/flipsideteam/near-intents-insight
 # Enable verbose output
 uv run dashboard-dl https://flipsidecrypto.xyz/flipsideteam/near-intents-insights-XO29Lh -v
 ```
+
+---
+
+## Global Installation (Use the CLI from Anywhere)
+
+If you want to use `dashboard-dl` as a command-line tool from any directory, you can install it globally. The recommended way is with [`pipx`](https://pypa.github.io/pipx/), which provides isolated environments for Python CLI tools.
+
+### 1. Install with pipx (Recommended)
+
+**a. Install pipx (if you don't have it):**
+```bash
+python3 -m pip install --user pipx
+python3 -m pipx ensurepath
+```
+Restart your shell or run `source ~/.profile` if needed.
+
+**b. Install dashboard-dl globally:**
+From your project directory:
+```bash
+pipx install .
+```
+Now you can run `dashboard-dl <args>` from any directory.
+
+**c. Upgrade after making changes:**
+If you update the project and want to upgrade your global CLI:
+```bash
+pipx upgrade dashboard-dl
+```
+
+**d. Uninstall (remove) the CLI:**
+```bash
+pipx uninstall dashboard-dl
+```
+
+### 2. Alternative: Symlink the Script
+
+If you prefer, you can symlink the script to a directory in your `PATH` (e.g., `~/.local/bin`).
+
+**a. Create a symlink:**
+```bash
+ln -s /full/path/to/dashboard-dl ~/.local/bin/dashboard-dl
+```
+Make sure `~/.local/bin` is in your `PATH`.
+
+**b. Remove the symlink:**
+```bash
+rm ~/.local/bin/dashboard-dl
+```
+
+**Note:** The symlink method does not isolate dependencies. You must ensure the correct Python environment is active, or the script uses a shebang pointing to the right interpreter.
