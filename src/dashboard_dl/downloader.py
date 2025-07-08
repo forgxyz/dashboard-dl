@@ -24,9 +24,13 @@ class DashboardDownloader:
         if self.verbose:
             print(f"[INFO] {message}")
     
-    def download(self, url: str, output_dir: str) -> str:
-        """Download and process a dashboard from the given URL"""
+    def download(self, url: str, output_dir: str = './outputs') -> str:
+        """Download and process a dashboard from the given URL. Artifacts are placed in the outputs directory by default."""
         self.log(f"Starting download from {url}")
+        
+        # Use default outputs directory if output_dir is None or empty
+        if not output_dir:
+            output_dir = './outputs'
         
         # Extract dashboard slug from URL
         slug = self._extract_slug(url)
