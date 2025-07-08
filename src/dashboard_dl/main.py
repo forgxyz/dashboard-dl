@@ -9,7 +9,7 @@ from .downloader import DashboardDownloader
 
 @click.command()
 @click.argument('url', required=True)
-@click.option('--output-dir', '-o', default='.', help='Output directory for downloaded dashboard')
+@click.option('--output-dir', '-o', default='./outputs', help='Output directory for downloaded dashboard')
 @click.option('--verbose', '-v', is_flag=True, help='Enable verbose output')
 def cli(url: str, output_dir: str, verbose: bool):
     """Download and preserve a Flipside Crypto Data Studio dashboard.
@@ -18,6 +18,9 @@ def cli(url: str, output_dir: str, verbose: bool):
     """
     if verbose:
         click.echo(f"Downloading dashboard from: {url}")
+    
+    # Ensure the output directory exists
+    Path(output_dir).mkdir(parents=True, exist_ok=True)
     
     try:
         downloader = DashboardDownloader(verbose=verbose)

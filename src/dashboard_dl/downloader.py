@@ -24,9 +24,13 @@ class DashboardDownloader:
         if self.verbose:
             print(f"[INFO] {message}")
     
-    def download(self, url: str, output_dir: str) -> str:
-        """Download and process a dashboard from the given URL"""
+    def download(self, url: str, output_dir: str = './outputs') -> str:
+        """Download and process a dashboard from the given URL. Artifacts are placed in the outputs directory by default."""
         self.log(f"Starting download from {url}")
+        
+        # Use default outputs directory if output_dir is None or empty
+        if not output_dir:
+            output_dir = './outputs'
         
         # Extract dashboard slug from URL
         slug = self._extract_slug(url)
@@ -46,22 +50,17 @@ class DashboardDownloader:
         metadata = self._extract_metadata(soup, url)
         
         # Create subdirectories
-        viz_dir = dashboard_dir / "visualizations"
         assets_dir = dashboard_dir / "assets"
-        viz_dir.mkdir(exist_ok=True)
         assets_dir.mkdir(exist_ok=True)
         
-        # Extract and save visualizations
-        visualizations = self._extract_visualizations(soup, viz_dir, assets_dir)
+        # Extract and save visualizations and text blocks
+        visualizations, text_blocks = self._extract_visualizations(soup, assets_dir)
         
-        # Generate dashboard.md
-        self._generate_markdown(metadata, visualizations, dashboard_dir)
+        # Generate descriptive markdown
+        self._generate_markdown(metadata, visualizations, text_blocks, dashboard_dir)
         
         # Generate metadata.json artifact
-        self._generate_json_artifact(metadata, visualizations, dashboard_dir)
-        
-        # Generate index.html
-        self._generate_html(metadata, visualizations, dashboard_dir)
+        self._generate_json_artifact(metadata, visualizations, text_blocks, dashboard_dir)
         
         self.log("Download completed successfully")
         return str(dashboard_dir)
@@ -78,10 +77,12 @@ class DashboardDownloader:
         self.log(f"Fetching page: {url}")
         response = self.session.get(url)
         response.raise_for_status()
+        self.log(f"Response status: {response.status_code}")
         return response.text
     
     def _extract_metadata(self, soup: BeautifulSoup, url: str) -> Dict[str, Any]:
         """Extract dashboard metadata from page"""
+        self.log(f"Extracting metadata from page: {url}")
         metadata = {
             'url': url,
             'title': None,
@@ -92,14 +93,14 @@ class DashboardDownloader:
         
         # Look for dashboard data in script tags
         dashboard_data = self._extract_dashboard_data(soup)
-        
+
         if dashboard_data:
             # Extract title from dashboard data
             if 'title' in dashboard_data:
                 metadata['title'] = dashboard_data['title']
             
             # Extract description from published config
-            config_key = 'publishedConfig' if 'publishedConfig' in dashboard_data else 'draftConfig'
+            config_key = 'publishedConfig' if ('publishedConfig' in dashboard_data and dashboard_data['publishedConfig'] is not None) else 'draftConfig'
             if config_key in dashboard_data:
                 config = dashboard_data[config_key]
                 contents = config.get('contents', {})
@@ -124,7 +125,7 @@ class DashboardDownloader:
                     metadata['title'] = elem.get_text().strip()
                     break
         
-        # Extract author/team info - skip for now to avoid JSON dump
+        # Extract author/team info - skip for now to avoid JSON dump - TODO
         # Will be extracted from proper metadata in future versions
         
         # Extract abstract/description if not found in dashboard data
@@ -186,16 +187,24 @@ class DashboardDownloader:
         
         return None
     
-    def _extract_visualizations(self, soup: BeautifulSoup, viz_dir: Path, assets_dir: Path) -> List[Dict[str, Any]]:
-        """Extract visualization data from dashboard"""
+    def _extract_visualizations(self, soup: BeautifulSoup, assets_dir: Path) -> tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+        """Extract visualization data and text blocks from dashboard"""
         visualizations = []
+        text_blocks = []
         
         # Extract dashboard data containing visualization and query information
         dashboard_data = self._extract_dashboard_data(soup)
-        
+
+        # log dashboard_data to a json file
+        # with open('dashboard_data.json', 'w') as f:
+        #     json.dump(dashboard_data, f, indent=2)
+
         if dashboard_data:
-            # Extract visualizations from dashboard config
-            visualizations = self._process_dashboard_visualizations(dashboard_data, viz_dir, assets_dir)
+            # Extract visualizations and text blocks from dashboard config
+            visualizations, text_blocks = self._process_dashboard_content(dashboard_data, assets_dir)
+        else:
+            # No dashboard data found, text_blocks remains empty
+            text_blocks = []
         
         # Fallback: Look for query links in the HTML
         query_links = soup.find_all('a', href=re.compile(r'/queries/'))
@@ -213,17 +222,18 @@ class DashboardDownloader:
                     self.log(f"Saved SQL query to {sql_file}")
             except Exception as e:
                 self.log(f"Could not fetch SQL query: {e}")
-        
-        return visualizations
+
+        return visualizations, text_blocks
     
-    def _process_dashboard_visualizations(self, dashboard_data: Dict[str, Any], viz_dir: Path, assets_dir: Path) -> List[Dict[str, Any]]:
-        """Process visualizations from dashboard data"""
+    def _process_dashboard_content(self, dashboard_data: Dict[str, Any], assets_dir: Path) -> tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+        """Process all content from dashboard data including visualizations and text blocks"""
         visualizations = []
+        text_blocks = []
         processed_queries = set()  # Track processed query IDs to avoid duplication
         
         try:
             # Look for visualization cells in published config
-            config_key = 'publishedConfig' if 'publishedConfig' in dashboard_data else 'draftConfig'
+            config_key = 'publishedConfig' if ('publishedConfig' in dashboard_data and dashboard_data['publishedConfig'] is not None) else 'draftConfig'
             
             if config_key in dashboard_data:
                 config = dashboard_data[config_key]
@@ -234,11 +244,12 @@ class DashboardDownloader:
                 
                 chart_count = 0
                 
-                # Process each visualization cell
+                # Process each cell (visualizations and text blocks)
                 for cell_id, cell_data in cells.items():
-                    if cell_data.get('variant') == 'visualization':
+                    cell_variant = cell_data.get('variant')
+                    
+                    if cell_variant == 'visualization':
                         chart_count += 1
-                        
                         # Get visualization content
                         viz_content = contents.get(cell_id, {})
                         
@@ -276,7 +287,7 @@ class DashboardDownloader:
                         }
                         
                         # Save enhanced visualization config
-                        config_file = viz_dir / f'chart-{chart_count}.json'
+                        config_file = assets_dir / f'chart-{chart_count}.json'
                         enhanced_config = {
                             'id': f'chart-{chart_count}',
                             'cell_id': cell_id,
@@ -310,11 +321,138 @@ class DashboardDownloader:
                         
                         visualizations.append(viz_info)
                         self.log(f"Processed visualization: {viz_info['title']} ({chart_type})")
+                    
+                    elif cell_variant in ['text', 'markdown', 'text-markdown']:
+                        # Process text/markdown cells
+                        text_content = contents.get(cell_id, {})
+                        
+                        if text_content:
+                            text_block = self._extract_text_block_content(cell_id, text_content, cell_data)
+                            if text_block:
+                                text_blocks.append(text_block)
+                                self.log(f"Processed text block: {text_block.get('title', cell_id)}")
                 
         except Exception as e:
-            self.log(f"Error processing dashboard visualizations: {e}")
+            self.log(f"Error processing dashboard content: {e}")
         
-        return visualizations
+        return visualizations, text_blocks
+    
+    def _extract_text_block_content(self, cell_id: str, text_content: Dict[str, Any], cell_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Extract content from text/markdown cells"""
+        try:
+            # Extract text content - it may be in different fields depending on cell type
+            # Try different possible fields for content: html, text, content, description
+            content = (text_content.get('html') or 
+                      text_content.get('text') or 
+                      text_content.get('content') or 
+                      text_content.get('description') or 
+                      '')
+            
+            title = text_content.get('title', cell_data.get('title', ''))
+            
+            if not content and not title:
+                return None
+            
+            # Convert HTML to markdown for cleaner output
+            markdown_content = self._html_to_markdown(content) if content else ''
+            
+            text_block = {
+                'cell_id': cell_id,
+                'variant': cell_data.get('variant', 'text'),
+                'title': title,
+                'content': markdown_content,
+                'order': cell_data.get('order', 0)
+            }
+            
+            return text_block
+            
+        except Exception as e:
+            self.log(f"Error extracting text block content for {cell_id}: {e}")
+            return None
+    
+    def _html_to_markdown(self, html_content: str) -> str:
+        """Convert HTML content to clean markdown format"""
+        if not html_content:
+            return ''
+        
+        try:
+            import re
+            
+            # Start with the original content
+            markdown = html_content
+            
+            # Convert common HTML tags to markdown
+            # Strong/Bold tags
+            markdown = re.sub(r'<strong>(.*?)</strong>', r'**\1**', markdown, flags=re.DOTALL)
+            markdown = re.sub(r'<b>(.*?)</b>', r'**\1**', markdown, flags=re.DOTALL)
+            
+            # Emphasis/Italic tags
+            markdown = re.sub(r'<em>(.*?)</em>', r'*\1*', markdown, flags=re.DOTALL)
+            markdown = re.sub(r'<i>(.*?)</i>', r'*\1*', markdown, flags=re.DOTALL)
+            
+            # Line breaks
+            markdown = re.sub(r'<br\s*/?>', '\n', markdown)
+            
+            # Lists - convert <ul> and <li> to markdown format
+            # First, handle nested list items
+            markdown = re.sub(r'<li[^>]*><p>(.*?)</p></li>', r'- \1', markdown, flags=re.DOTALL)
+            markdown = re.sub(r'<li[^>]*>(.*?)</li>', r'- \1', markdown, flags=re.DOTALL)
+            
+            # Remove <ul> and <ol> tags with any attributes
+            markdown = re.sub(r'<ul[^>]*>', '', markdown)
+            markdown = re.sub(r'</ul>', '', markdown)
+            markdown = re.sub(r'<ol[^>]*>', '', markdown)  
+            markdown = re.sub(r'</ol>', '', markdown)
+            
+            # Paragraphs - convert to double newlines for proper markdown spacing
+            markdown = re.sub(r'<p[^>]*>(.*?)</p>', r'\1\n\n', markdown, flags=re.DOTALL)
+            
+            # Links
+            markdown = re.sub(r'<a[^>]*href=["\']([^"\']*)["\'][^>]*>(.*?)</a>', r'[\2](\1)', markdown, flags=re.DOTALL)
+            
+            # Code blocks
+            markdown = re.sub(r'<code>(.*?)</code>', r'`\1`', markdown, flags=re.DOTALL)
+            markdown = re.sub(r'<pre>(.*?)</pre>', r'```\n\1\n```', markdown, flags=re.DOTALL)
+            
+            # Headers (if any)
+            for i in range(1, 7):
+                markdown = re.sub(f'<h{i}[^>]*>(.*?)</h{i}>', f'{"#" * i} \\1\n\n', markdown, flags=re.DOTALL)
+            
+            # Remove any remaining HTML tags
+            markdown = re.sub(r'<[^>]+>', '', markdown)
+            
+            # Clean up extra whitespace and newlines
+            markdown = re.sub(r'\n\s*\n\s*\n', '\n\n', markdown)  # Remove triple+ newlines
+            markdown = re.sub(r'^\s+|\s+$', '', markdown)  # Trim whitespace
+            
+            # Clean up list formatting
+            lines = markdown.split('\n')
+            cleaned_lines = []
+            for line in lines:
+                line = line.strip()
+                if line.startswith('- '):
+                    # Ensure proper spacing around list items
+                    cleaned_lines.append(line)
+                elif line and cleaned_lines and cleaned_lines[-1].startswith('- '):
+                    # Add blank line after list
+                    cleaned_lines.append('')
+                    cleaned_lines.append(line)
+                else:
+                    cleaned_lines.append(line)
+            
+            markdown = '\n'.join(cleaned_lines)
+            
+            # Final cleanup
+            markdown = re.sub(r'\n{3,}', '\n\n', markdown)  # Max 2 consecutive newlines
+            markdown = markdown.strip()
+            
+            return markdown
+            
+        except Exception as e:
+            self.log(f"Error converting HTML to markdown: {e}")
+            # Fallback: just strip HTML tags
+            import re
+            return re.sub(r'<[^>]+>', '', html_content).strip()
     
     def _extract_chart_type(self, viz_content: Dict[str, Any], dashboard_data: Dict[str, Any]) -> str:
         """Extract the actual chart type (bar, line, pie, etc.) from visualization data"""
@@ -326,7 +464,7 @@ class DashboardDownloader:
             
             # Search through the dashboard data for visualization definitions
             # This might be in different locations depending on the dashboard structure
-            config_key = 'publishedConfig' if 'publishedConfig' in dashboard_data else 'draftConfig'
+            config_key = 'publishedConfig' if ('publishedConfig' in dashboard_data and dashboard_data['publishedConfig'] is not None) else 'draftConfig'
             config = dashboard_data.get(config_key, {})
             
             # Check if there are visualization definitions with chart type info
@@ -379,7 +517,7 @@ class DashboardDownloader:
             # Try to find visualization definition in dashboard data
             vis_id = viz_content.get('visId')
             if vis_id:
-                config_key = 'publishedConfig' if 'publishedConfig' in dashboard_data else 'draftConfig'
+                config_key = 'publishedConfig' if ('publishedConfig' in dashboard_data and dashboard_data['publishedConfig'] is not None) else 'draftConfig'
                 config = dashboard_data.get(config_key, {})
                 
                 # Look for visualization definition
@@ -456,7 +594,7 @@ class DashboardDownloader:
             # Try to find in visualization definition
             vis_id = viz_content.get('visId')
             if vis_id:
-                config_key = 'publishedConfig' if 'publishedConfig' in dashboard_data else 'draftConfig'
+                config_key = 'publishedConfig' if ('publishedConfig' in dashboard_data and dashboard_data['publishedConfig'] is not None) else 'draftConfig'
                 config = dashboard_data.get(config_key, {})
                 
                 visualizations = config.get('visualizations', {})
@@ -488,7 +626,7 @@ class DashboardDownloader:
             # Try to find full visualization definition
             vis_id = viz_content.get('visId')
             if vis_id:
-                config_key = 'publishedConfig' if 'publishedConfig' in dashboard_data else 'draftConfig'
+                config_key = 'publishedConfig' if ('publishedConfig' in dashboard_data and dashboard_data['publishedConfig'] is not None) else 'draftConfig'
                 config = dashboard_data.get(config_key, {})
                 
                 visualizations = config.get('visualizations', {})
@@ -666,17 +804,25 @@ class DashboardDownloader:
         
         return None
     
-    def _generate_markdown(self, metadata: Dict[str, Any], visualizations: List[Dict[str, Any]], output_dir: Path):
-        """Generate dashboard.md file"""
+    def _generate_markdown(self, metadata: Dict[str, Any], visualizations: List[Dict[str, Any]], text_blocks: List[Dict[str, Any]], output_dir: Path):
+        """Generate README.md file with visualizations and text blocks"""
         md_content = []
         
         # Overview section
-        md_content.append("# Dashboard Overview\n")
+        md_content.append(f"# {metadata.get('title', 'Dashboard')}\n")
         md_content.append(f"**Title:** {metadata.get('title', 'Unknown')}\n")
-        md_content.append(f"**URL:** {metadata['url']}\n")
         
-        if metadata.get('author'):
-            md_content.append(f"**Author:** {metadata['author']}\n")
+        # Extract author from URL if not in metadata
+        author = metadata.get('author')
+        if not author and metadata.get('url'):
+            url_parts = metadata['url'].split('/')
+            if len(url_parts) >= 5 and 'flipsidecrypto.xyz' in metadata['url']:
+                author = url_parts[-2]  # Get username from URL
+        
+        if author:
+            md_content.append(f"**Author:** {author}\n")
+        
+        md_content.append(f"**URL:** {metadata['url']}\n")
         
         if metadata.get('abstract'):
             md_content.append(f"**Abstract:** {metadata['abstract']}\n")
@@ -709,6 +855,18 @@ class DashboardDownloader:
         else:
             md_content.append("*Data sources will be identified from SQL queries when available*\n")
         
+        # Text Blocks section
+        if text_blocks:
+            md_content.append("\n## Text Blocks\n")
+            md_content.append("The following text blocks provide context and explanations for the dashboard:\n\n")
+            
+            for text_block in text_blocks:
+                if text_block.get('title'):
+                    md_content.append(f"### {text_block['title']}\n")
+                
+                if text_block.get('content'):
+                    md_content.append(f"{text_block['content']}\n\n")
+        
         # Visualizations section
         md_content.append("\n## Visualizations\n")
         
@@ -717,45 +875,88 @@ class DashboardDownloader:
         else:
             for viz in visualizations:
                 chart_num = viz['id'].split('-')[-1]
-                md_content.append(f"\n### Chart {chart_num}: {viz.get('title', 'Untitled')}\n")
-                md_content.append(f"- **Chart Type:** {viz.get('type', 'Visualization')}\n")
-                md_content.append(f"- **Configuration:** `visualizations/{viz['id']}.json`\n")
+                chart_section = []
+                chart_section.append(f"\n### Chart {chart_num}: {viz.get('title', 'Untitled')}\n")
+                chart_section.append(f"- **Chart Type:** {viz.get('type', 'Visualization')}")
+                chart_section.append(f"- **Configuration:** `assets/{viz['id']}.json`")
+                
+                # Add enhanced metadata based on chart type and configuration
+                chart_config = viz.get('chart_config', {})
+                inputs_config = chart_config.get('inputs', {}).get('config', {})
+                chart_type = viz.get('type', '')
+                
+                # Add type-specific metadata
+                if chart_type == 'big-number':
+                    if inputs_config.get('valueKey'):
+                        chart_section.append(f"- **Value Key:** {inputs_config['valueKey']} (auto-formatted big number display)")
+                    if chart_config.get('inputs', {}).get('config', {}).get('suffix'):
+                        chart_section.append(f"- **Description:** {chart_config['inputs']['config']['suffix']}")
+                elif chart_type == 'pie':
+                    if inputs_config.get('slice'):
+                        chart_section.append(f"- **Slice Key:** {inputs_config['slice']['key']} ({inputs_config['slice']['type']})")
+                    if inputs_config.get('value'):
+                        chart_section.append(f"- **Value Key:** {inputs_config['value']['key']} ({inputs_config['value']['type']})")
+                    if chart_config.get('plotOptions', {}).get('pie', {}).get('showInLegend'):
+                        chart_section.append(f"- **Legend:** Show in legend enabled")
+                elif chart_type in ['bar-stacked', 'bar', 'bar-line']:
+                    if inputs_config.get('x'):
+                        chart_section.append(f"- **X-Axis:** {inputs_config['x']['key']} ({inputs_config['x']['type']})")
+                    if inputs_config.get('y') and isinstance(inputs_config['y'], list) and len(inputs_config['y']) > 0:
+                        y_axis = inputs_config['y'][0]
+                        chart_section.append(f"- **Y-Axis:** {y_axis['key']} ({y_axis['type']})")
+                    if chart_config.get('plotOptions', {}).get('column', {}).get('stacking'):
+                        chart_section.append(f"- **Stacking:** Normal column stacking")
+                    if chart_type == 'bar-line':
+                        chart_section.append(f"- **Chart Style:** Bar-line combination")
+                elif chart_type == 'viz-table':
+                    # For tables, we could extract column info from the CSV if available
+                    chart_section.append(f"- **Display:** Tabular data visualization")
+                elif chart_type == 'heatmap':
+                    chart_section.append(f"- **Chart Style:** Heatmap visualization")
                 
                 # Check if SQL and CSV files exist using query ID
                 query_id = viz.get('query_id')
                 if query_id:
                     sql_file = output_dir / "assets" / f"{query_id}.sql"
                     if sql_file.exists():
-                        md_content.append(f"- **SQL Query:** `assets/{query_id}.sql`\n")
+                        chart_section.append(f"- **SQL Query:** `assets/{query_id}.sql`")
                     else:
-                        md_content.append(f"- **SQL Query:** Not publicly accessible\n")
+                        chart_section.append(f"- **SQL Query:** Not publicly accessible")
                     
                     csv_file = output_dir / "assets" / f"{query_id}.csv"
                     if csv_file.exists():
-                        md_content.append(f"- **Resultset:** `assets/{query_id}.csv`\n")
+                        chart_section.append(f"- **Resultset:** `assets/{query_id}.csv`")
                     else:
-                        md_content.append(f"- **Resultset:** Not available for download\n")
+                        chart_section.append(f"- **Resultset:** Not available for download")
                     
-                    md_content.append(f"- **Query ID:** `{query_id}`\n")
+                    chart_section.append(f"- **Query ID:** `{query_id}`")
                     
                     # Add execution timestamps if available
                     query_metadata = viz.get('query_metadata', {})
                     if query_metadata.get('last_successful_execution'):
-                        md_content.append(f"- **Last Executed:** {query_metadata['last_successful_execution']}\n")
+                        chart_section.append(f"- **Last Executed:** {query_metadata['last_successful_execution']}")
                     if query_metadata.get('result_last_accessed'):
-                        md_content.append(f"- **Result Last Accessed:** {query_metadata['result_last_accessed']}\n")
+                        chart_section.append(f"- **Result Last Accessed:** {query_metadata['result_last_accessed']}")
                 else:
-                    md_content.append(f"- **SQL Query:** No query ID available\n")
-                    md_content.append(f"- **Resultset:** No query ID available\n")
+                    chart_section.append(f"- **SQL Query:** No query ID available")
+                    chart_section.append(f"- **Resultset:** No query ID available")
+                
+                # Join chart section with proper line breaks
+                md_content.append('\n'.join(chart_section))
         
-        # Write markdown file
-        md_file = output_dir / "dashboard.md"
+        # Write markdown file with descriptive name
+        title = metadata.get('title', 'Dashboard')
+        # Clean title for filename - remove special characters
+        clean_title = re.sub(r'[^\w\s-]', '', title).strip()
+        clean_title = re.sub(r'[-\s]+', '-', clean_title)
+        md_file = output_dir / f"{clean_title}-description.md"
+        
         with open(md_file, 'w', encoding='utf-8') as f:
             f.write('\n'.join(md_content))
         
-        self.log(f"Generated dashboard.md")
+        self.log(f"Generated {md_file.name}")
     
-    def _generate_json_artifact(self, metadata: Dict[str, Any], visualizations: List[Dict[str, Any]], output_dir: Path):
+    def _generate_json_artifact(self, metadata: Dict[str, Any], visualizations: List[Dict[str, Any]], text_blocks: List[Dict[str, Any]], output_dir: Path):
         """Generate comprehensive JSON metadata artifact for programmatic access"""
         import datetime
         
@@ -769,10 +970,12 @@ class DashboardDownloader:
                 "tags": metadata.get('tags', []),
                 "generated_at": datetime.datetime.utcnow().isoformat() + "Z",
                 "total_charts": len(visualizations),
-                "unique_queries": len(set(viz.get('query_id') for viz in visualizations if viz.get('query_id')))
+                "unique_queries": len(set(viz.get('query_id') for viz in visualizations if viz.get('query_id'))),
+                "total_text_blocks": len(text_blocks)
             },
             "queries": {},
-            "visualizations": []
+            "visualizations": [],
+            "text_blocks": text_blocks
         }
         
         # Process each visualization
@@ -818,408 +1021,25 @@ class DashboardDownloader:
         
         self.log(f"Generated metadata.json artifact")
     
-    def _generate_html(self, metadata: Dict[str, Any], visualizations: List[Dict[str, Any]], output_dir: Path):
-        """Generate interactive HTML dashboard with Chart.js"""
-        
-        # Generate CSS styles
-        css_styles = """
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; 
-            margin: 0; 
-            padding: 20px; 
-            background-color: #f5f7fa; 
-        }
-        .container { max-width: 1200px; margin: 0 auto; }
-        .header { 
-            background: white; 
-            padding: 20px; 
-            border-radius: 8px; 
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
-            margin-bottom: 20px; 
-        }
-        .metadata { 
-            background: white; 
-            padding: 20px; 
-            border-radius: 8px; 
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
-            margin-bottom: 20px; 
-        }
-        .chart-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); 
-            gap: 20px; 
-        }
-        .chart-container { 
-            background: white; 
-            padding: 20px; 
-            border-radius: 8px; 
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
-        }
-        .chart-canvas { 
-            max-height: 400px; 
-            margin: 15px 0; 
-        }
-        .chart-title { 
-            margin: 0 0 10px 0; 
-            color: #2c3e50; 
-            font-size: 1.1em; 
-        }
-        .chart-meta { 
-            font-size: 0.9em; 
-            color: #7f8c8d; 
-            margin-bottom: 15px; 
-        }
-        .metric-value { 
-            font-size: 2em; 
-            font-weight: bold; 
-            color: #3498db; 
-            text-align: center; 
-            padding: 20px; 
-        }
-        """
-        
-        # Generate JavaScript for chart rendering
-        js_content = self._generate_chart_js(visualizations, output_dir)
-        
-        html_content = f"""<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{metadata.get('title', 'Dashboard Snapshot')}</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>{css_styles}</style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>{metadata.get('title', 'Dashboard Snapshot')}</h1>
-            <p><strong>Source:</strong> <a href="{metadata['url']}">{metadata['url']}</a></p>
-        </div>
-        
-        <div class="metadata">
-            <h2>Dashboard Information</h2>
-            <p><strong>Description:</strong> {metadata.get('abstract', 'No description available')}</p>
-            <p><strong>Total Charts:</strong> {len(visualizations)}</p>
-            <p><strong>Generated:</strong> <span id="generated-time"></span></p>
-        </div>
-        
-        <div class="visualizations">
-            <h2>Interactive Visualizations</h2>
-            <div class="chart-grid">"""
-        
-        if not visualizations:
-            html_content += """
-                <p>No visualizations were extracted from this dashboard.</p>"""
-        else:
-            for viz in visualizations:
-                query_id = viz.get('query_id', '')
-                chart_id = f"chart-{viz['id'].split('-')[-1]}"
-                
-                html_content += f"""
-                <div class="chart-container">
-                    <h3 class="chart-title">{viz.get('title', 'Untitled Chart')}</h3>
-                    <div class="chart-meta">
-                        Query ID: {query_id[:8]}... | Type: {viz.get('type', 'Unknown')}
-                    </div>
-                    <div class="chart-canvas">
-                        <canvas id="{chart_id}" width="400" height="300"></canvas>
-                    </div>
-                </div>"""
-        
-        html_content += f"""
-            </div>
-        </div>
-    </div>
-    
-    <script>
-        // Set generated time
-        document.getElementById('generated-time').textContent = new Date().toLocaleString();
-        
-        {js_content}
-    </script>
-</body>
-</html>"""
-        
-        # Write HTML file
-        html_file = output_dir / "index.html"
-        with open(html_file, 'w', encoding='utf-8') as f:
-            f.write(html_content)
-        
-        self.log(f"Generated interactive HTML dashboard")
-    
-    def _generate_chart_js(self, visualizations: List[Dict[str, Any]], output_dir: Path) -> str:
-        """Generate JavaScript code for rendering charts with CSV data"""
-        js_content = []
-        
-        for viz in visualizations:
-            query_id = viz.get('query_id')
-            if not query_id:
-                continue
-                
-            chart_id = f"chart-{viz['id'].split('-')[-1]}"
-            csv_file = output_dir / "assets" / f"{query_id}.csv"
-            
-            if csv_file.exists():
-                try:
-                    # Read and parse CSV data
-                    with open(csv_file, 'r', encoding='utf-8') as f:
-                        lines = f.readlines()
-                    
-                    if len(lines) < 2:
-                        continue
-                        
-                    headers = [h.strip() for h in lines[0].split(',')]
-                    rows = []
-                    for line in lines[1:]:
-                        if line.strip():
-                            row = [cell.strip().strip('"') for cell in line.split(',')]
-                            rows.append(row)
-                    
-                    # Generate chart based on data structure
-                    chart_js = self._generate_chart_for_data(chart_id, viz.get('title', 'Chart'), headers, rows)
-                    if chart_js:
-                        js_content.append(chart_js)
-                        
-                except Exception as e:
-                    self.log(f"Error generating chart for {chart_id}: {e}")
-                    # Fallback to placeholder
-                    js_content.append(f"""
-                    // Error rendering chart {chart_id}: {e}
-                    const ctx_{chart_id} = document.getElementById('{chart_id}').getContext('2d');
-                    ctx_{chart_id}.fillText('Error loading chart data', 10, 50);
-                    """)
-        
-        return '\n'.join(js_content)
-    
-    def _generate_chart_for_data(self, chart_id: str, title: str, headers: List[str], rows: List[List[str]]) -> str:
-        """Generate Chart.js code based on data structure"""
-        
-        # Single value metric (1 column, 1 row)
-        if len(headers) == 1 and len(rows) == 1:
-            try:
-                value = float(rows[0][0])
-                formatted_value = f"{value:,.0f}" if value > 1000 else f"{value:.2f}"
-                return f"""
-                // Single metric for {chart_id}
-                document.getElementById('{chart_id}').parentElement.innerHTML = 
-                    '<div class="metric-value">{formatted_value}</div>' +
-                    '<div style="text-align: center; color: #7f8c8d;">{headers[0].replace('_', ' ').title()}</div>';
-                """
-            except (ValueError, IndexError):
-                pass
-        
-        # Time series data (has DATE column)
-        date_col = None
-        for i, header in enumerate(headers):
-            if 'date' in header.lower() or 'time' in header.lower():
-                date_col = i
-                break
-                
-        if date_col is not None and len(headers) >= 2:
-            # Use first non-date column as primary metric
-            value_col = 0 if date_col != 0 else 1
-            if value_col < len(headers):
-                return self._generate_time_series_chart(chart_id, title, headers, rows, date_col, value_col)
-        
-        # Two-column data (category/value pairs)
-        if len(headers) == 2 and len(rows) > 1:
-            return self._generate_bar_chart(chart_id, title, headers, rows)
-        
-        # Multi-column data - use as bar chart with first column as labels
-        if len(headers) > 2 and len(rows) > 1:
-            return self._generate_multi_series_chart(chart_id, title, headers, rows)
-        
-        # Fallback: display as table
-        return self._generate_table_display(chart_id, title, headers, rows)
-    
-    def _generate_time_series_chart(self, chart_id: str, title: str, headers: List[str], rows: List[List[str]], date_col: int, value_col: int) -> str:
-        """Generate time series line chart"""
+    def _find_compass_id_for_query(self, query_id: str, dashboard_data: Dict[str, Any]) -> Optional[str]:
+        """Find compass ID for a given query ID from dashboard data"""
         try:
-            data_points = []
-            for row in rows[:50]:  # Limit to 50 points for performance
-                if len(row) > max(date_col, value_col):
-                    try:
-                        date_str = row[date_col].split(' ')[0]  # Extract date part
-                        value = float(row[value_col])
-                        data_points.append(f"{{x: '{date_str}', y: {value}}}")
-                    except (ValueError, IndexError):
-                        continue
-            
-            if not data_points:
-                return ""
+            config_key = 'publishedConfig' if ('publishedConfig' in dashboard_data and dashboard_data['publishedConfig'] is not None) else 'draftConfig'
+            if config_key not in dashboard_data:
+                return None
                 
-            return f"""
-            // Time series chart for {chart_id}
-            new Chart(document.getElementById('{chart_id}'), {{
-                type: 'line',
-                data: {{
-                    datasets: [{{
-                        label: '{headers[value_col].replace('_', ' ').title()}',
-                        data: [{', '.join(data_points)}],
-                        borderColor: '#3498db',
-                        backgroundColor: 'rgba(52, 152, 219, 0.1)',
-                        tension: 0.1
-                    }}]
-                }},
-                options: {{
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {{
-                        title: {{
-                            display: false
-                        }}
-                    }},
-                    scales: {{
-                        x: {{
-                            type: 'time',
-                            time: {{
-                                parser: 'YYYY-MM-DD'
-                            }}
-                        }},
-                        y: {{
-                            beginAtZero: true
-                        }}
-                    }}
-                }}
-            }});
-            """
+            config = dashboard_data[config_key]
+            cells = config.get('layout', {}).get('body', {}).get('rows', [])
+            
+            for row in cells:
+                for cell in row.get('cells', []):
+                    if cell.get('variant') == 'visualization' and cell.get('queryId') == query_id:
+                        return cell.get('compassId')
+            
+            return None
         except Exception as e:
-            return f"// Error generating time series for {chart_id}: {e}"
-    
-    def _generate_bar_chart(self, chart_id: str, title: str, headers: List[str], rows: List[List[str]]) -> str:
-        """Generate horizontal bar chart for category/value data"""
-        try:
-            labels = []
-            values = []
-            
-            # Take top 15 items for readability
-            for row in rows[:15]:
-                if len(row) >= 2:
-                    try:
-                        label = row[0][:30]  # Truncate long labels
-                        value = float(row[1])
-                        labels.append(f"'{label}'")
-                        values.append(str(value))
-                    except (ValueError, IndexError):
-                        continue
-            
-            if not labels:
-                return ""
-                
-            return f"""
-            // Bar chart for {chart_id}
-            new Chart(document.getElementById('{chart_id}'), {{
-                type: 'bar',
-                data: {{
-                    labels: [{', '.join(labels)}],
-                    datasets: [{{
-                        label: '{headers[1].replace('_', ' ').title()}',
-                        data: [{', '.join(values)}],
-                        backgroundColor: 'rgba(52, 152, 219, 0.6)',
-                        borderColor: '#3498db',
-                        borderWidth: 1
-                    }}]
-                }},
-                options: {{
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    indexAxis: 'y',
-                    plugins: {{
-                        legend: {{
-                            display: false
-                        }}
-                    }},
-                    scales: {{
-                        x: {{
-                            beginAtZero: true
-                        }}
-                    }}
-                }}
-            }});
-            """
-        except Exception as e:
-            return f"// Error generating bar chart for {chart_id}: {e}"
-    
-    def _generate_multi_series_chart(self, chart_id: str, title: str, headers: List[str], rows: List[List[str]]) -> str:
-        """Generate multi-series bar chart"""
-        try:
-            labels = []
-            datasets = []
-            
-            # Use first column as labels, rest as data series
-            for row in rows[:10]:  # Limit for performance
-                if len(row) >= len(headers):
-                    labels.append(f"'{row[0][:20]}'")  # Truncate label
-            
-            colors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6', '#1abc9c']
-            
-            for i, header in enumerate(headers[1:]):  # Skip first column (labels)
-                if i >= len(colors):
-                    break
-                    
-                values = []
-                for row in rows[:10]:
-                    if len(row) > i + 1:
-                        try:
-                            values.append(str(float(row[i + 1])))
-                        except (ValueError, IndexError):
-                            values.append('0')
-                    else:
-                        values.append('0')
-                
-                datasets.append(f"""{{
-                    label: '{header.replace('_', ' ').title()}',
-                    data: [{', '.join(values)}],
-                    backgroundColor: '{colors[i]}',
-                    borderColor: '{colors[i]}',
-                    borderWidth: 1
-                }}""")
-            
-            return f"""
-            // Multi-series chart for {chart_id}
-            new Chart(document.getElementById('{chart_id}'), {{
-                type: 'bar',
-                data: {{
-                    labels: [{', '.join(labels)}],
-                    datasets: [{', '.join(datasets)}]
-                }},
-                options: {{
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {{
-                        legend: {{
-                            position: 'top'
-                        }}
-                    }},
-                    scales: {{
-                        y: {{
-                            beginAtZero: true
-                        }}
-                    }}
-                }}
-            }});
-            """
-        except Exception as e:
-            return f"// Error generating multi-series chart for {chart_id}: {e}"
-    
-    def _generate_table_display(self, chart_id: str, title: str, headers: List[str], rows: List[List[str]]) -> str:
-        """Generate table display for complex data"""
-        try:
-            table_html = "<table style='width:100%; border-collapse: collapse;'>"
-            table_html += "<tr>" + "".join([f"<th style='border:1px solid #ddd; padding:8px; background:#f2f2f2;'>{h}</th>" for h in headers[:5]]) + "</tr>"
-            
-            for row in rows[:10]:  # Show first 10 rows
-                table_html += "<tr>" + "".join([f"<td style='border:1px solid #ddd; padding:8px;'>{cell[:50]}</td>" for cell in row[:5]]) + "</tr>"
-            
-            table_html += "</table>"
-            
-            return f"""
-            // Table display for {chart_id}
-            document.getElementById('{chart_id}').parentElement.innerHTML = '{table_html}';
-            """
-        except Exception as e:
-            return f"// Error generating table for {chart_id}: {e}"
+            self.log(f"Error finding compass ID for query {query_id}: {e}")
+            return None
     
     def _find_compass_id_for_query(self, query_id: str, dashboard_data: Dict[str, Any]) -> Optional[str]:
         """Find compass ID for a given query ID"""
@@ -1242,6 +1062,7 @@ class DashboardDownloader:
         except Exception as e:
             self.log(f"Error finding compass ID for query {query_id}: {e}")
             return None
+
     
     def _fetch_csv_data_from_compass(self, compass_id: str, file_identifier: str, assets_dir: Path) -> bool:
         """Fetch CSV data using compass ID from query-runs API"""
