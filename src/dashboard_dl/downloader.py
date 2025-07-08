@@ -77,10 +77,12 @@ class DashboardDownloader:
         self.log(f"Fetching page: {url}")
         response = self.session.get(url)
         response.raise_for_status()
+        self.log(f"Response status: {response.status_code}")
         return response.text
     
     def _extract_metadata(self, soup: BeautifulSoup, url: str) -> Dict[str, Any]:
         """Extract dashboard metadata from page"""
+        self.log(f"Extracting metadata from page: {url}")
         metadata = {
             'url': url,
             'title': None,
@@ -91,14 +93,14 @@ class DashboardDownloader:
         
         # Look for dashboard data in script tags
         dashboard_data = self._extract_dashboard_data(soup)
-        
+
         if dashboard_data:
             # Extract title from dashboard data
             if 'title' in dashboard_data:
                 metadata['title'] = dashboard_data['title']
             
             # Extract description from published config
-            config_key = 'publishedConfig' if 'publishedConfig' in dashboard_data else 'draftConfig'
+            config_key = 'publishedConfig' if ('publishedConfig' in dashboard_data and dashboard_data['publishedConfig'] is not None) else 'draftConfig'
             if config_key in dashboard_data:
                 config = dashboard_data[config_key]
                 contents = config.get('contents', {})
@@ -123,7 +125,7 @@ class DashboardDownloader:
                     metadata['title'] = elem.get_text().strip()
                     break
         
-        # Extract author/team info - skip for now to avoid JSON dump
+        # Extract author/team info - skip for now to avoid JSON dump - TODO
         # Will be extracted from proper metadata in future versions
         
         # Extract abstract/description if not found in dashboard data
@@ -192,7 +194,11 @@ class DashboardDownloader:
         
         # Extract dashboard data containing visualization and query information
         dashboard_data = self._extract_dashboard_data(soup)
-        
+
+        # log dashboard_data to a json file
+        # with open('dashboard_data.json', 'w') as f:
+        #     json.dump(dashboard_data, f, indent=2)
+
         if dashboard_data:
             # Extract visualizations and text blocks from dashboard config
             visualizations, text_blocks = self._process_dashboard_content(dashboard_data, assets_dir)
@@ -227,7 +233,7 @@ class DashboardDownloader:
         
         try:
             # Look for visualization cells in published config
-            config_key = 'publishedConfig' if 'publishedConfig' in dashboard_data else 'draftConfig'
+            config_key = 'publishedConfig' if ('publishedConfig' in dashboard_data and dashboard_data['publishedConfig'] is not None) else 'draftConfig'
             
             if config_key in dashboard_data:
                 config = dashboard_data[config_key]
@@ -458,7 +464,7 @@ class DashboardDownloader:
             
             # Search through the dashboard data for visualization definitions
             # This might be in different locations depending on the dashboard structure
-            config_key = 'publishedConfig' if 'publishedConfig' in dashboard_data else 'draftConfig'
+            config_key = 'publishedConfig' if ('publishedConfig' in dashboard_data and dashboard_data['publishedConfig'] is not None) else 'draftConfig'
             config = dashboard_data.get(config_key, {})
             
             # Check if there are visualization definitions with chart type info
@@ -511,7 +517,7 @@ class DashboardDownloader:
             # Try to find visualization definition in dashboard data
             vis_id = viz_content.get('visId')
             if vis_id:
-                config_key = 'publishedConfig' if 'publishedConfig' in dashboard_data else 'draftConfig'
+                config_key = 'publishedConfig' if ('publishedConfig' in dashboard_data and dashboard_data['publishedConfig'] is not None) else 'draftConfig'
                 config = dashboard_data.get(config_key, {})
                 
                 # Look for visualization definition
@@ -588,7 +594,7 @@ class DashboardDownloader:
             # Try to find in visualization definition
             vis_id = viz_content.get('visId')
             if vis_id:
-                config_key = 'publishedConfig' if 'publishedConfig' in dashboard_data else 'draftConfig'
+                config_key = 'publishedConfig' if ('publishedConfig' in dashboard_data and dashboard_data['publishedConfig'] is not None) else 'draftConfig'
                 config = dashboard_data.get(config_key, {})
                 
                 visualizations = config.get('visualizations', {})
@@ -620,7 +626,7 @@ class DashboardDownloader:
             # Try to find full visualization definition
             vis_id = viz_content.get('visId')
             if vis_id:
-                config_key = 'publishedConfig' if 'publishedConfig' in dashboard_data else 'draftConfig'
+                config_key = 'publishedConfig' if ('publishedConfig' in dashboard_data and dashboard_data['publishedConfig'] is not None) else 'draftConfig'
                 config = dashboard_data.get(config_key, {})
                 
                 visualizations = config.get('visualizations', {})
@@ -1018,7 +1024,7 @@ class DashboardDownloader:
     def _find_compass_id_for_query(self, query_id: str, dashboard_data: Dict[str, Any]) -> Optional[str]:
         """Find compass ID for a given query ID from dashboard data"""
         try:
-            config_key = 'publishedConfig' if 'publishedConfig' in dashboard_data else 'draftConfig'
+            config_key = 'publishedConfig' if ('publishedConfig' in dashboard_data and dashboard_data['publishedConfig'] is not None) else 'draftConfig'
             if config_key not in dashboard_data:
                 return None
                 
