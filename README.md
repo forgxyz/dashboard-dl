@@ -2,10 +2,23 @@
 
 A Python tool to download and preserve Flipside Crypto Data Studio dashboard artifacts. This script extracts sql queries, the latest cached resultset, chart configurations and text blocks and builds a description markdown file, as well as logging the queries and results for use in Snowflake.
 
-## Known Issues
-Dashboards with multiple tabs do not parse properly at the moment.
+## Output
+When you run the tool to download a dashboard, it generates an archive with the following structure:
 
----
+```
+outputs/<dashboard-title>/
+├── assets/
+│   ├── <query-name>.sql         # SQL file for each dashboard query
+│   ├── <query-name>.csv         # CSV file with the latest cached results for each query
+│   ├── <chart-n>.json        # JSON file for each chart configuration
+│   └── ...
+├── metadata.json                # Metadata about the dashboard (title, author, etc.)
+├── description.md               # Markdown file describing the dashboard, queries, and charts
+```
+
+- **assets/**: Contains all extracted SQL queries, their latest resultsets as CSVs, and chart configuration files as JSON.
+- **metadata.json**: Captures dashboard-level metadata such as title, author, creation date, and other relevant properties.
+- **description.md**: A human-readable markdown summary of the dashboard, including descriptions, query explanations, and chart overviews.
 
 ## Quickstart Guide
 

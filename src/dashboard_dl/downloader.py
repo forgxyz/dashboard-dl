@@ -238,104 +238,385 @@ class DashboardDownloader:
             if config_key in dashboard_data:
                 config = dashboard_data[config_key]
                 
-                # Extract contents and cells
-                contents = config.get('contents', {})
-                cells = config.get('cells', {})
+                # Check if this is a tabular dashboard with multiple tabs
+                tabs = config.get('tabs', [])
                 
-                chart_count = 0
+                # Check for tabs at the dashboard level (newer format)
+                if not tabs and 'tabs' in dashboard_data:
+                    tabs = dashboard_data['tabs']
+                    self.log(f"Found tabs in dashboard root: {tabs}")
                 
-                # Process each cell (visualizations and text blocks)
-                for cell_id, cell_data in cells.items():
-                    cell_variant = cell_data.get('variant')
-                    
-                    if cell_variant == 'visualization':
-                        chart_count += 1
-                        # Get visualization content
-                        viz_content = contents.get(cell_id, {})
-                        
-                        # Extract chart type (will be enhanced with API data)
-                        chart_type = self._extract_chart_type(viz_content, dashboard_data)
-                        
-                        # Find compass ID and query metadata for this query
-                        query_id = viz_content.get('queryId')
-                        compass_id = self._find_compass_id_for_query(query_id, dashboard_data)
-                        query_metadata = self._get_query_metadata(query_id, dashboard_data)
-                        
-                        # Extract Highcharts configuration from API first (contains title)
-                        chart_config = self._fetch_chart_config_from_api(viz_content.get('visId'))
-                        
-                        # Extract chart title with API data preferred
-                        chart_title = self._extract_chart_title_with_api(viz_content, cell_data, dashboard_data, chart_config)
-                        
-                        # Extract axes information (enhanced with API data)
-                        axes_info = self._extract_axes_info_with_api(viz_content, dashboard_data, chart_config)
-                        
-                        # Use API chart type if available
-                        final_chart_type = chart_config.get('type', chart_type)
-                        
-                        viz_info = {
-                            'id': f'chart-{chart_count}',
-                            'cell_id': cell_id,
-                            'title': chart_title,
-                            'type': final_chart_type,
-                            'vis_id': viz_content.get('visId'),
-                            'query_id': query_id,
-                            'compass_id': compass_id,
-                            'query_metadata': query_metadata,
-                            'axes': axes_info,
-                            'chart_config': chart_config
-                        }
-                        
-                        # Save enhanced visualization config
-                        config_file = assets_dir / f'chart-{chart_count}.json'
-                        enhanced_config = {
-                            'id': f'chart-{chart_count}',
-                            'cell_id': cell_id,
-                            'title': chart_title,
-                            'type': final_chart_type,
-                            'vis_id': viz_content.get('visId'),
-                            'query_id': query_id,
-                            'axes': axes_info,
-                            'chart_config': chart_config,
-                            'original_viz_content': viz_content
-                        }
-                        with open(config_file, 'w') as f:
-                            json.dump(enhanced_config, f, indent=2)
-                        
-                        # Only process SQL and CSV if we haven't seen this query before
-                        if query_id and query_id not in processed_queries:
-                            processed_queries.add(query_id)
-                            
-                            # Try to extract SQL query from dashboard data first
-                            sql_extracted = self._extract_sql_from_dashboard_data(
-                                query_id, query_id, assets_dir, dashboard_data
-                            )
-                            
-                            # Fallback to studio URL if not found in dashboard data
-                            if not sql_extracted:
-                                self._extract_sql_for_query(query_id, query_id, assets_dir)
-                            
-                            # Try to fetch CSV data using compass ID
-                            if compass_id:
-                                self._fetch_csv_data_from_compass(compass_id, query_id, assets_dir)
-                        
-                        visualizations.append(viz_info)
-                        self.log(f"Processed visualization: {viz_info['title']} ({chart_type})")
-                    
-                    elif cell_variant in ['text', 'markdown', 'text-markdown']:
-                        # Process text/markdown cells
-                        text_content = contents.get(cell_id, {})
-                        
-                        if text_content:
-                            text_block = self._extract_text_block_content(cell_id, text_content, cell_data)
-                            if text_block:
-                                text_blocks.append(text_block)
-                                self.log(f"Processed text block: {text_block.get('title', cell_id)}")
+                # Check for tabs in the publishedConfig or draftConfig itself
+                if not tabs and config_key in dashboard_data:
+                    config_data = dashboard_data[config_key]
+                    if 'tabs' in config_data:
+                        tabs = config_data['tabs']
+                        self.log(f"Found tabs in {config_key}: {tabs}")
+                
+                # Check for tabs in the dashboard root - this is the new format
+                if not tabs and 'tabs' in dashboard_data:
+                    tabs = dashboard_data['tabs']
+                    self.log(f"Found tabs in dashboard root: {tabs}")
+                
+                # Check for tabs in the 'published' or 'draft' sections
+                if not tabs:
+                    for section in ['published', 'draft']:
+                        if section in dashboard_data and dashboard_data[section] and 'tabs' in dashboard_data[section]:
+                            tabs = dashboard_data[section]['tabs']
+                            self.log(f"Found tabs in {section}: {tabs}")
+                            break
+                
+                # Debug logging
+                self.log(f"Tabs found: {tabs}")
+                
+                if tabs:
+                    # Process tabular dashboard with multiple tabs
+                    self.log(f"Processing tabular dashboard with {len(tabs)} tabs")
+                    visualizations, text_blocks = self._process_tabular_dashboard(config, assets_dir, dashboard_data, processed_queries)
+                else:
+                    # Process regular single-page dashboard
+                    self.log("Processing single-page dashboard")
+                    visualizations, text_blocks = self._process_single_page_dashboard(config, assets_dir, dashboard_data, processed_queries)
                 
         except Exception as e:
             self.log(f"Error processing dashboard content: {e}")
         
         return visualizations, text_blocks
+    
+    def _process_tabular_dashboard(self, config: Dict[str, Any], assets_dir: Path, dashboard_data: Dict[str, Any], processed_queries: set) -> tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+        """Process tabular dashboard with multiple tabs"""
+        visualizations = []
+        text_blocks = []
+        chart_count = 0
+        
+        # Get tabs from the dashboard data (not config)
+        tabs = dashboard_data.get('tabs', [])
+        if not tabs:
+            tabs = config.get('tabs', [])
+        
+        # Check for tabs in the 'published' section
+        if not tabs and 'published' in dashboard_data:
+            tabs = dashboard_data['published'].get('tabs', [])
+        
+        # Check for tabs in the 'draft' section
+        if not tabs and 'draft' in dashboard_data:
+            tabs = dashboard_data['draft'].get('tabs', [])
+        
+        contents = config.get('contents', {})
+        cells = config.get('cells', {})
+        
+        # Check if cells is in the published section
+        if not cells and 'published' in dashboard_data:
+            cells = dashboard_data['published'].get('cells', [])
+        
+        # Check if cells is in the publishedConfig section
+        if not cells and 'publishedConfig' in dashboard_data:
+            cells = dashboard_data['publishedConfig'].get('cells', [])
+        
+        # Make sure cells is passed as the correct structure for finding tab cells
+        if isinstance(cells, list):
+            # Convert list to the config format expected by _find_cells_for_tab
+            cells_config = {'cells': cells}
+        else:
+            cells_config = config
+        
+        # Process each tab
+        for tab_index, tab in enumerate(tabs):
+            tab_id = tab.get('id')
+            tab_title = tab.get('title', f'Tab {tab_index + 1}')
+            
+            self.log(f"Processing tab: {tab_title} (ID: {tab_id})")
+            
+            # Find cells that belong to this tab
+            tab_cells = self._find_cells_for_tab(tab_id, cells, cells_config)
+            
+            
+            # Process cells in this tab
+            for cell_id, cell_data in tab_cells.items():
+                cell_variant = cell_data.get('variant')
+                
+                if cell_variant == 'visualization':
+                    chart_count += 1
+                    
+                    # Extract visualization ID from formula
+                    formula = cell_data.get('formula')
+                    vis_id = None
+                    query_id = None
+                    
+                    if formula and isinstance(formula, dict):
+                        vis_id = formula.get('visId')
+                        query_id = formula.get('queryId')
+                    
+                    # Get additional content from contents if available
+                    viz_content = contents.get(cell_id, {})
+                    if not vis_id and viz_content:
+                        vis_id = viz_content.get('visId')
+                    if not query_id and viz_content:
+                        query_id = viz_content.get('queryId')
+                    
+                    # Extract Highcharts configuration from API
+                    chart_config = self._fetch_chart_config_from_api(vis_id)
+                    
+                    # Extract query ID from API response if not found in formula
+                    if not query_id and chart_config.get('_full_api_response'):
+                        query_id = chart_config['_full_api_response'].get('queryId')
+                        self.log(f"Found query ID {query_id} from API response for vis_id {vis_id}")
+                    
+                    # Extract chart information
+                    chart_type = self._extract_chart_type(chart_config, dashboard_data)
+                    compass_id = self._find_compass_id_for_query(query_id, dashboard_data)
+                    query_metadata = self._get_query_metadata(query_id, dashboard_data)
+                    
+                    # Extract chart title with API data preferred
+                    chart_title = self._extract_chart_title_with_api(viz_content, cell_data, dashboard_data, chart_config)
+                    
+                    # Extract axes information
+                    axes_info = self._extract_axes_info_with_api(viz_content, dashboard_data, chart_config)
+                    
+                    # Use API chart type if available, otherwise use extracted type
+                    final_chart_type = chart_type if chart_type != 'unknown' else chart_config.get('type', chart_type)
+                    
+                    viz_info = {
+                        'id': f'chart-{chart_count}',
+                        'cell_id': cell_id,
+                        'tab_id': tab_id,
+                        'tab_title': tab_title,
+                        'title': chart_title,
+                        'type': final_chart_type,
+                        'vis_id': vis_id,
+                        'query_id': query_id,
+                        'compass_id': compass_id,
+                        'query_metadata': query_metadata,
+                        'axes': axes_info,
+                        'chart_config': chart_config
+                    }
+                    
+                    # Save enhanced visualization config
+                    config_file = assets_dir / f'chart-{chart_count}.json'
+                    enhanced_config = {
+                        'id': f'chart-{chart_count}',
+                        'cell_id': cell_id,
+                        'tab_id': tab_id,
+                        'tab_title': tab_title,
+                        'title': chart_title,
+                        'type': final_chart_type,
+                        'vis_id': vis_id,
+                        'query_id': query_id,
+                        'axes': axes_info,
+                        'chart_config': chart_config,
+                        'original_viz_content': viz_content,
+                        'formula': formula
+                    }
+                    
+                    # Create visualization directory if it doesn't exist
+                    viz_dir = assets_dir.parent / "visualizations"
+                    viz_dir.mkdir(exist_ok=True)
+                    
+                    config_file = viz_dir / f'chart-{chart_count}.json'
+                    with open(config_file, 'w') as f:
+                        json.dump(enhanced_config, f, indent=2)
+                    
+                    # Process SQL and CSV if we haven't seen this query before
+                    if query_id and query_id not in processed_queries:
+                        processed_queries.add(query_id)
+                        
+                        # Try to extract SQL query from dashboard data first
+                        sql_extracted = self._extract_sql_from_dashboard_data(
+                            query_id, query_id, assets_dir, dashboard_data
+                        )
+                        
+                        # Fallback to studio URL if not found in dashboard data
+                        if not sql_extracted:
+                            self._extract_sql_for_query(query_id, query_id, assets_dir)
+                        
+                        # Try to fetch CSV data using compass ID
+                        if compass_id:
+                            self._fetch_csv_data_from_compass(compass_id, query_id, assets_dir)
+                    
+                    visualizations.append(viz_info)
+                    self.log(f"Processed visualization in {tab_title}: {viz_info['title']} ({final_chart_type})")
+                
+                elif cell_variant == 'text':
+                    # Process text/markdown cells - extract from formula or contents
+                    formula = cell_data.get('formula')
+                    text_content = contents.get(cell_id, {})
+                    
+                    # Try to extract text from formula first
+                    content_text = ''
+                    if formula and isinstance(formula, dict):
+                        content_text = formula.get('text', '')
+                    elif formula and isinstance(formula, str):
+                        content_text = formula
+                    
+                    # Fallback to contents
+                    if not content_text and text_content:
+                        content_text = text_content.get('text', '') or text_content.get('content', '')
+                    
+                    if content_text:
+                        text_block = {
+                            'cell_id': cell_id,
+                            'variant': 'text',
+                            'type': cell_data.get('type', 'text'),
+                            'title': '',  # Will be extracted from content if available
+                            'content': self._html_to_markdown(content_text),
+                            'tab_id': tab_id,
+                            'tab_title': tab_title,
+                            'order': cell_data.get('component', {}).get('y', 0)
+                        }
+                        text_blocks.append(text_block)
+                        self.log(f"Processed text block in {tab_title}: {cell_id}")
+        
+        return visualizations, text_blocks
+    
+    def _process_single_page_dashboard(self, config: Dict[str, Any], assets_dir: Path, dashboard_data: Dict[str, Any], processed_queries: set) -> tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+        """Process regular single-page dashboard"""
+        visualizations = []
+        text_blocks = []
+        chart_count = 0
+        
+        # Extract contents and cells
+        contents = config.get('contents', {})
+        cells = config.get('cells', {})
+        
+        # Process each cell (visualizations and text blocks)
+        for cell_id, cell_data in cells.items():
+            cell_variant = cell_data.get('variant')
+            
+            if cell_variant == 'visualization':
+                chart_count += 1
+                # Get visualization content
+                viz_content = contents.get(cell_id, {})
+                
+                # Find compass ID and query metadata for this query
+                query_id = viz_content.get('queryId')
+                
+                # Extract Highcharts configuration from API first (contains title)
+                chart_config = self._fetch_chart_config_from_api(viz_content.get('visId'))
+                
+                # Extract query ID from API response if not found in viz_content
+                if not query_id and chart_config.get('_full_api_response'):
+                    query_id = chart_config['_full_api_response'].get('queryId')
+                    self.log(f"Found query ID {query_id} from API response for vis_id {viz_content.get('visId')}")
+                
+                # Extract chart type (will be enhanced with API data)
+                chart_type = self._extract_chart_type(chart_config, dashboard_data)
+                
+                compass_id = self._find_compass_id_for_query(query_id, dashboard_data)
+                query_metadata = self._get_query_metadata(query_id, dashboard_data)
+                
+                # Extract chart title with API data preferred
+                chart_title = self._extract_chart_title_with_api(viz_content, cell_data, dashboard_data, chart_config)
+                
+                # Extract axes information (enhanced with API data)
+                axes_info = self._extract_axes_info_with_api(viz_content, dashboard_data, chart_config)
+                
+                # Use API chart type if available, otherwise use extracted type
+                final_chart_type = chart_type if chart_type != 'unknown' else chart_config.get('type', chart_type)
+                
+                viz_info = {
+                    'id': f'chart-{chart_count}',
+                    'cell_id': cell_id,
+                    'title': chart_title,
+                    'type': final_chart_type,
+                    'vis_id': viz_content.get('visId'),
+                    'query_id': query_id,
+                    'compass_id': compass_id,
+                    'query_metadata': query_metadata,
+                    'axes': axes_info,
+                    'chart_config': chart_config
+                }
+                
+                # Save enhanced visualization config
+                config_file = assets_dir / f'chart-{chart_count}.json'
+                enhanced_config = {
+                    'id': f'chart-{chart_count}',
+                    'cell_id': cell_id,
+                    'title': chart_title,
+                    'type': final_chart_type,
+                    'vis_id': viz_content.get('visId'),
+                    'query_id': query_id,
+                    'axes': axes_info,
+                    'chart_config': chart_config,
+                    'original_viz_content': viz_content
+                }
+                with open(config_file, 'w') as f:
+                    json.dump(enhanced_config, f, indent=2)
+                
+                # Only process SQL and CSV if we haven't seen this query before
+                if query_id and query_id not in processed_queries:
+                    processed_queries.add(query_id)
+                    
+                    # Try to extract SQL query from dashboard data first
+                    sql_extracted = self._extract_sql_from_dashboard_data(
+                        query_id, query_id, assets_dir, dashboard_data
+                    )
+                    
+                    # Fallback to studio URL if not found in dashboard data
+                    if not sql_extracted:
+                        self._extract_sql_for_query(query_id, query_id, assets_dir)
+                    
+                    # Try to fetch CSV data using compass ID
+                    if compass_id:
+                        self._fetch_csv_data_from_compass(compass_id, query_id, assets_dir)
+                
+                visualizations.append(viz_info)
+                self.log(f"Processed visualization: {viz_info['title']} ({chart_type})")
+            
+            elif cell_variant in ['text', 'markdown', 'text-markdown']:
+                # Process text/markdown cells
+                text_content = contents.get(cell_id, {})
+                
+                if text_content:
+                    text_block = self._extract_text_block_content(cell_id, text_content, cell_data)
+                    if text_block:
+                        text_blocks.append(text_block)
+                        self.log(f"Processed text block: {text_block.get('title', cell_id)}")
+        
+        return visualizations, text_blocks
+    
+    def _find_cells_for_tab(self, tab_id: str, cells: Dict[str, Any], config: Dict[str, Any]) -> Dict[str, Any]:
+        """Find all cells that belong to a specific tab"""
+        tab_cells = {}
+        
+        # The new structure uses 'cells' array with component.t property for tab association
+        if 'cells' in config:
+            cells_array = config['cells']
+            for cell in cells_array:
+                cell_id = cell.get('id')
+                component = cell.get('component', {})
+                cell_tab_id = component.get('t')
+                
+                if cell_tab_id == tab_id and cell_id:
+                    # Convert cell structure to match expected format
+                    cell_type = component.get('type', 'unknown')
+                    
+                    # Map cell types to our expected variants
+                    if cell_type in ['QueryVisual', 'QueryTable']:
+                        variant = 'visualization'
+                    elif cell_type in ['Text', 'Heading']:
+                        variant = 'text'
+                    else:
+                        variant = 'other'
+                    
+                    tab_cells[cell_id] = {
+                        'id': cell_id,
+                        'variant': variant,
+                        'type': cell_type,
+                        'formula': cell.get('formula'),
+                        'component': component
+                    }
+        
+        # Fallback: look for cells that reference this tab in the old structure
+        if not tab_cells:
+            for cell_id, cell_data in cells.items():
+                # Check if the cell belongs to this tab (different dashboards may use different structures)
+                if cell_data.get('tabId') == tab_id:
+                    tab_cells[cell_id] = cell_data
+                # Some dashboards may use different field names
+                elif cell_data.get('tab') == tab_id:
+                    tab_cells[cell_id] = cell_data
+        
+        return tab_cells
     
     def _extract_text_block_content(self, cell_id: str, text_content: Dict[str, Any], cell_data: Dict[str, Any]) -> Dict[str, Any]:
         """Extract content from text/markdown cells"""
@@ -457,6 +738,24 @@ class DashboardDownloader:
     def _extract_chart_type(self, viz_content: Dict[str, Any], dashboard_data: Dict[str, Any]) -> str:
         """Extract the actual chart type (bar, line, pie, etc.) from visualization data"""
         try:
+            # First, try to get chart type from the full API response in the viz_content
+            full_api_response = viz_content.get('_full_api_response', {})
+            if full_api_response:
+                # Check in chart.type field
+                chart_info = full_api_response.get('chart', {})
+                if chart_info and 'type' in chart_info:
+                    return chart_info['type']
+                
+                # Check in chartType field (legacy)
+                chart_type = full_api_response.get('chartType')
+                if chart_type:
+                    return chart_type
+                
+                # Check in legacyType field
+                legacy_type = full_api_response.get('legacyType')
+                if legacy_type:
+                    return legacy_type
+            
             # Look for chart type in the visualization definition
             vis_id = viz_content.get('visId')
             if not vis_id:
@@ -855,94 +1154,92 @@ class DashboardDownloader:
         else:
             md_content.append("*Data sources will be identified from SQL queries when available*\n")
         
-        # Text Blocks section
-        if text_blocks:
-            md_content.append("\n## Text Blocks\n")
-            md_content.append("The following text blocks provide context and explanations for the dashboard:\n\n")
+        # Check if this is a tabular dashboard
+        has_tabs = any(viz.get('tab_id') for viz in visualizations) or any(text_block.get('tab_id') for text_block in text_blocks)
+        
+        if has_tabs:
+            # Group content by tabs for tabular dashboards
+            tabs_content = {}
             
-            for text_block in text_blocks:
-                if text_block.get('title'):
-                    md_content.append(f"### {text_block['title']}\n")
-                
-                if text_block.get('content'):
-                    md_content.append(f"{text_block['content']}\n\n")
-        
-        # Visualizations section
-        md_content.append("\n## Visualizations\n")
-        
-        if not visualizations:
-            md_content.append("*No visualizations extracted from dashboard*\n")
-        else:
+            # Group visualizations by tab
             for viz in visualizations:
-                chart_num = viz['id'].split('-')[-1]
-                chart_section = []
-                chart_section.append(f"\n### Chart {chart_num}: {viz.get('title', 'Untitled')}\n")
-                chart_section.append(f"- **Chart Type:** {viz.get('type', 'Visualization')}")
-                chart_section.append(f"- **Configuration:** `assets/{viz['id']}.json`")
+                tab_id = viz.get('tab_id', 'unknown')
+                tab_title = viz.get('tab_title', 'Unknown Tab')
+                if tab_id not in tabs_content:
+                    tabs_content[tab_id] = {'title': tab_title, 'visualizations': [], 'text_blocks': []}
+                tabs_content[tab_id]['visualizations'].append(viz)
+            
+            # Group text blocks by tab
+            for text_block in text_blocks:
+                tab_id = text_block.get('tab_id', 'unknown')
+                tab_title = text_block.get('tab_title', 'Unknown Tab')
+                if tab_id not in tabs_content:
+                    tabs_content[tab_id] = {'title': tab_title, 'visualizations': [], 'text_blocks': []}
+                tabs_content[tab_id]['text_blocks'].append(text_block)
+            
+            # Generate content for each tab
+            for tab_id, tab_data in tabs_content.items():
+                md_content.append(f"\n## Tab: {tab_data['title']}\n")
                 
-                # Add enhanced metadata based on chart type and configuration
-                chart_config = viz.get('chart_config', {})
-                inputs_config = chart_config.get('inputs', {}).get('config', {})
-                chart_type = viz.get('type', '')
+                # Text blocks for this tab
+                if tab_data['text_blocks']:
+                    md_content.append("### Text Blocks\n")
+                    for text_block in tab_data['text_blocks']:
+                        if text_block.get('title'):
+                            md_content.append(f"#### {text_block['title']}\n")
+                        
+                        if text_block.get('content'):
+                            md_content.append(f"{text_block['content']}\n\n")
                 
-                # Add type-specific metadata
-                if chart_type == 'big-number':
-                    if inputs_config.get('valueKey'):
-                        chart_section.append(f"- **Value Key:** {inputs_config['valueKey']} (auto-formatted big number display)")
-                    if chart_config.get('inputs', {}).get('config', {}).get('suffix'):
-                        chart_section.append(f"- **Description:** {chart_config['inputs']['config']['suffix']}")
-                elif chart_type == 'pie':
-                    if inputs_config.get('slice'):
-                        chart_section.append(f"- **Slice Key:** {inputs_config['slice']['key']} ({inputs_config['slice']['type']})")
-                    if inputs_config.get('value'):
-                        chart_section.append(f"- **Value Key:** {inputs_config['value']['key']} ({inputs_config['value']['type']})")
-                    if chart_config.get('plotOptions', {}).get('pie', {}).get('showInLegend'):
-                        chart_section.append(f"- **Legend:** Show in legend enabled")
-                elif chart_type in ['bar-stacked', 'bar', 'bar-line']:
-                    if inputs_config.get('x'):
-                        chart_section.append(f"- **X-Axis:** {inputs_config['x']['key']} ({inputs_config['x']['type']})")
-                    if inputs_config.get('y') and isinstance(inputs_config['y'], list) and len(inputs_config['y']) > 0:
-                        y_axis = inputs_config['y'][0]
-                        chart_section.append(f"- **Y-Axis:** {y_axis['key']} ({y_axis['type']})")
-                    if chart_config.get('plotOptions', {}).get('column', {}).get('stacking'):
-                        chart_section.append(f"- **Stacking:** Normal column stacking")
-                    if chart_type == 'bar-line':
-                        chart_section.append(f"- **Chart Style:** Bar-line combination")
-                elif chart_type == 'viz-table':
-                    # For tables, we could extract column info from the CSV if available
-                    chart_section.append(f"- **Display:** Tabular data visualization")
-                elif chart_type == 'heatmap':
-                    chart_section.append(f"- **Chart Style:** Heatmap visualization")
+                # Visualizations for this tab
+                if tab_data['visualizations']:
+                    md_content.append("### Visualizations\n")
+                    for viz in tab_data['visualizations']:
+                        chart_num = viz['id'].split('-')[-1]
+                        chart_section = []
+                        chart_section.append(f"\n#### Chart {chart_num}: {viz.get('title', 'Untitled')}\n")
+                        chart_section.append(f"- **Chart Type:** {viz.get('type', 'Visualization')}")
+                        chart_section.append(f"- **Configuration:** `assets/{viz['id']}.json`")
+                        
+                        # Add chart metadata
+                        chart_section.extend(self._generate_chart_metadata(viz, output_dir))
+                        
+                        # Join chart section with proper line breaks
+                        md_content.append('\n'.join(chart_section))
+                elif not tab_data['text_blocks']:
+                    md_content.append("*No content found for this tab*\n")
+        else:
+            # Original single-page dashboard format
+            # Text Blocks section
+            if text_blocks:
+                md_content.append("\n## Text Blocks\n")
+                md_content.append("The following text blocks provide context and explanations for the dashboard:\n\n")
                 
-                # Check if SQL and CSV files exist using query ID
-                query_id = viz.get('query_id')
-                if query_id:
-                    sql_file = output_dir / "assets" / f"{query_id}.sql"
-                    if sql_file.exists():
-                        chart_section.append(f"- **SQL Query:** `assets/{query_id}.sql`")
-                    else:
-                        chart_section.append(f"- **SQL Query:** Not publicly accessible")
+                for text_block in text_blocks:
+                    if text_block.get('title'):
+                        md_content.append(f"### {text_block['title']}\n")
                     
-                    csv_file = output_dir / "assets" / f"{query_id}.csv"
-                    if csv_file.exists():
-                        chart_section.append(f"- **Resultset:** `assets/{query_id}.csv`")
-                    else:
-                        chart_section.append(f"- **Resultset:** Not available for download")
+                    if text_block.get('content'):
+                        md_content.append(f"{text_block['content']}\n\n")
+            
+            # Visualizations section
+            md_content.append("\n## Visualizations\n")
+            
+            if not visualizations:
+                md_content.append("*No visualizations extracted from dashboard*\n")
+            else:
+                for viz in visualizations:
+                    chart_num = viz['id'].split('-')[-1]
+                    chart_section = []
+                    chart_section.append(f"\n### Chart {chart_num}: {viz.get('title', 'Untitled')}\n")
+                    chart_section.append(f"- **Chart Type:** {viz.get('type', 'Visualization')}")
+                    chart_section.append(f"- **Configuration:** `assets/{viz['id']}.json`")
                     
-                    chart_section.append(f"- **Query ID:** `{query_id}`")
+                    # Add chart metadata
+                    chart_section.extend(self._generate_chart_metadata(viz, output_dir))
                     
-                    # Add execution timestamps if available
-                    query_metadata = viz.get('query_metadata', {})
-                    if query_metadata.get('last_successful_execution'):
-                        chart_section.append(f"- **Last Executed:** {query_metadata['last_successful_execution']}")
-                    if query_metadata.get('result_last_accessed'):
-                        chart_section.append(f"- **Result Last Accessed:** {query_metadata['result_last_accessed']}")
-                else:
-                    chart_section.append(f"- **SQL Query:** No query ID available")
-                    chart_section.append(f"- **Resultset:** No query ID available")
-                
-                # Join chart section with proper line breaks
-                md_content.append('\n'.join(chart_section))
+                    # Join chart section with proper line breaks
+                    md_content.append('\n'.join(chart_section))
         
         # Write markdown file with descriptive name
         title = metadata.get('title', 'Dashboard')
@@ -955,6 +1252,73 @@ class DashboardDownloader:
             f.write('\n'.join(md_content))
         
         self.log(f"Generated {md_file.name}")
+    
+    def _generate_chart_metadata(self, viz: Dict[str, Any], output_dir: Path) -> List[str]:
+        """Generate chart metadata lines for markdown"""
+        chart_section = []
+        
+        # Add enhanced metadata based on chart type and configuration
+        chart_config = viz.get('chart_config', {})
+        inputs_config = chart_config.get('inputs', {}).get('config', {})
+        chart_type = viz.get('type', '')
+        
+        # Add type-specific metadata
+        if chart_type == 'big-number':
+            if inputs_config.get('valueKey'):
+                chart_section.append(f"- **Value Key:** {inputs_config['valueKey']} (auto-formatted big number display)")
+            if chart_config.get('inputs', {}).get('config', {}).get('suffix'):
+                chart_section.append(f"- **Description:** {chart_config['inputs']['config']['suffix']}")
+        elif chart_type == 'pie':
+            if inputs_config.get('slice'):
+                chart_section.append(f"- **Slice Key:** {inputs_config['slice']['key']} ({inputs_config['slice']['type']})")
+            if inputs_config.get('value'):
+                chart_section.append(f"- **Value Key:** {inputs_config['value']['key']} ({inputs_config['value']['type']})")
+            if chart_config.get('plotOptions', {}).get('pie', {}).get('showInLegend'):
+                chart_section.append(f"- **Legend:** Show in legend enabled")
+        elif chart_type in ['bar-stacked', 'bar', 'bar-line']:
+            if inputs_config.get('x'):
+                chart_section.append(f"- **X-Axis:** {inputs_config['x']['key']} ({inputs_config['x']['type']})")
+            if inputs_config.get('y') and isinstance(inputs_config['y'], list) and len(inputs_config['y']) > 0:
+                y_axis = inputs_config['y'][0]
+                chart_section.append(f"- **Y-Axis:** {y_axis['key']} ({y_axis['type']})")
+            if chart_config.get('plotOptions', {}).get('column', {}).get('stacking'):
+                chart_section.append(f"- **Stacking:** Normal column stacking")
+            if chart_type == 'bar-line':
+                chart_section.append(f"- **Chart Style:** Bar-line combination")
+        elif chart_type == 'viz-table':
+            # For tables, we could extract column info from the CSV if available
+            chart_section.append(f"- **Display:** Tabular data visualization")
+        elif chart_type == 'heatmap':
+            chart_section.append(f"- **Chart Style:** Heatmap visualization")
+        
+        # Check if SQL and CSV files exist using query ID
+        query_id = viz.get('query_id')
+        if query_id:
+            sql_file = output_dir / "assets" / f"{query_id}.sql"
+            if sql_file.exists():
+                chart_section.append(f"- **SQL Query:** `assets/{query_id}.sql`")
+            else:
+                chart_section.append(f"- **SQL Query:** Not publicly accessible")
+            
+            csv_file = output_dir / "assets" / f"{query_id}.csv"
+            if csv_file.exists():
+                chart_section.append(f"- **Resultset:** `assets/{query_id}.csv`")
+            else:
+                chart_section.append(f"- **Resultset:** Not available for download")
+            
+            chart_section.append(f"- **Query ID:** `{query_id}`")
+            
+            # Add execution timestamps if available
+            query_metadata = viz.get('query_metadata', {})
+            if query_metadata.get('last_successful_execution'):
+                chart_section.append(f"- **Last Executed:** {query_metadata['last_successful_execution']}")
+            if query_metadata.get('result_last_accessed'):
+                chart_section.append(f"- **Result Last Accessed:** {query_metadata['result_last_accessed']}")
+        else:
+            chart_section.append(f"- **SQL Query:** No query ID available")
+            chart_section.append(f"- **Resultset:** No query ID available")
+        
+        return chart_section
     
     def _generate_json_artifact(self, metadata: Dict[str, Any], visualizations: List[Dict[str, Any]], text_blocks: List[Dict[str, Any]], output_dir: Path):
         """Generate comprehensive JSON metadata artifact for programmatic access"""
