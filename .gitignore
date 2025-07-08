@@ -1,0 +1,7 @@
+.claude/
+CLAUDE.md
+.env
+.DS_Store
+outputs/
+test_run.py
+.venv/
