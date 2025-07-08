@@ -40,21 +40,17 @@ You can check that UV is installed with:
 uv --version
 ```
 
-### 3. Set Up a Virtual Environment (Optional but Recommended)
+### 3. Set Up Environment and Install Dependencies
 
-A virtual environment keeps your Python packages isolated. UV handles this automatically when you run commands below.
-
-### 4. Install Project Dependencies
-
-Install all required Python packages using UV:
+UV will automatically create a virtual environment (if one does not exist) and install all required Python packages from `pyproject.toml` (and `requirements.txt` if present) with a single command:
 
 ```bash
-uv pip install -r pyproject.toml
+uv sync
 ```
 
-Or, if you want to use the project as a script, you can run it directly with UV (see below).
+That's it! You're ready to use the tool.
 
-### 5. Download a Dashboard
+### 4. Download a Dashboard
 
 You can now use the tool to download a Flipside dashboard. Replace `<dashboard-url>` with the actual dashboard link:
 
@@ -62,28 +58,9 @@ You can now use the tool to download a Flipside dashboard. Replace `<dashboard-u
 uv run dashboard-dl <dashboard-url>
 ```
 
-#### Example:
-
-```bash
-uv run dashboard-dl https://flipsidecrypto.xyz/flipsideteam/near-intents-insights-XO29Lh
-```
-
 #### Additional Options:
-- `-o <output-dir>`: Specify a folder to save the dashboard (default is current directory)
+- `-o <output-dir>`: Specify a folder to save the dashboard (default is /outputs in the current directory)
 - `-v`: Enable detailed output (verbose mode)
-
----
-
-## Installation (Advanced/Alternative)
-
-If you prefer, you can install dependencies and run the tool using standard Python tools. Make sure you have Python 3.10 or newer.
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r pyproject.toml
-python -m dashboard_dl.main <dashboard-url>
-```
 
 ---
 
