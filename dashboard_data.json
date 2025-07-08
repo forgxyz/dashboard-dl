@@ -1,0 +1,2660 @@
+{
+  "id": "7b4f6585-2583-41c8-9c4b-ff049444b232",
+  "title": "NEAR Intents | Insights",
+  "latestSlug": "near-intents-insights-XO29Lh",
+  "collectionId": "31f14f01-64a7-4696-9099-292b6dbf514f",
+  "openGraphImageId": "a9a24465-967b-428a-9020-9279aba7dedf",
+  "coverImageId": "a9a24465-967b-428a-9020-9279aba7dedf",
+  "draft": {
+    "cells": []
+  },
+  "published": null,
+  "draftConfig": {
+    "cells": {
+      "root": {
+        "id": "root",
+        "variant": "root",
+        "childCellIds": [
+          "root-header",
+          "visualization-Su_s",
+          "visualization-qVmu",
+          "visualization-Wo-g",
+          "visualization-VMeV",
+          "visualization-Oq0N",
+          "visualization-Q9oH",
+          "visualization-0BvK",
+          "text-H-d1",
+          "text-YxFH",
+          "visualization-9oaj",
+          "visualization-UKUl",
+          "visualization-7GOH",
+          "visualization-d-KR",
+          "visualization-9gNU",
+          "tabs-panel-wiTK",
+          "tabs-panel-QBJH"
+        ],
+        "parentCellId": null
+      },
+      "text-H-d1": {
+        "id": "text-H-d1",
+        "variant": "text",
+        "childCellIds": [],
+        "parentCellId": "root"
+      },
+      "text-YxFH": {
+        "id": "text-YxFH",
+        "variant": "text",
+        "childCellIds": [],
+        "parentCellId": "root"
+      },
+      "root-header": {
+        "id": "root-header",
+        "variant": "header",
+        "childCellIds": [],
+        "parentCellId": "root"
+      },
+      "tab-layout-90C4": {
+        "id": "tab-layout-90C4",
+        "variant": "tab-layout",
+        "childCellIds": [
+          "visualization-I6Hi"
+        ],
+        "parentCellId": "tabs-panel-QBJH"
+      },
+      "tab-layout-JmI4": {
+        "id": "tab-layout-JmI4",
+        "variant": "tab-layout",
+        "childCellIds": [
+          "visualization-KY65"
+        ],
+        "parentCellId": "tabs-panel-wiTK"
+      },
+      "tab-layout-T1li": {
+        "id": "tab-layout-T1li",
+        "variant": "tab-layout",
+        "childCellIds": [
+          "visualization-mU1F"
+        ],
+        "parentCellId": "tabs-panel-QBJH"
+      },
+      "tab-layout-nBaf": {
+        "id": "tab-layout-nBaf",
+        "variant": "tab-layout",
+        "childCellIds": [
+          "visualization-JfSo"
+        ],
+        "parentCellId": "tabs-panel-wiTK"
+      },
+      "tab-layout-wiYE": {
+        "id": "tab-layout-wiYE",
+        "variant": "tab-layout",
+        "childCellIds": [
+          "visualization-uvX_"
+        ],
+        "parentCellId": "tabs-panel-wiTK"
+      },
+      "tab-layout-xouK": {
+        "id": "tab-layout-xouK",
+        "variant": "tab-layout",
+        "childCellIds": [
+          "visualization-qUOi"
+        ],
+        "parentCellId": "tabs-panel-QBJH"
+      },
+      "tabs-panel-QBJH": {
+        "id": "tabs-panel-QBJH",
+        "variant": "tabs-panel",
+        "childCellIds": [
+          "tab-layout-xouK",
+          "tab-layout-90C4",
+          "tab-layout-T1li"
+        ],
+        "parentCellId": "root"
+      },
+      "tabs-panel-wiTK": {
+        "id": "tabs-panel-wiTK",
+        "variant": "tabs-panel",
+        "childCellIds": [
+          "tab-layout-wiYE",
+          "tab-layout-nBaf",
+          "tab-layout-JmI4"
+        ],
+        "parentCellId": "root"
+      },
+      "visualization-0BvK": {
+        "id": "visualization-0BvK",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "root"
+      },
+      "visualization-7GOH": {
+        "id": "visualization-7GOH",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "root"
+      },
+      "visualization-9gNU": {
+        "id": "visualization-9gNU",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "root"
+      },
+      "visualization-9oaj": {
+        "id": "visualization-9oaj",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "root"
+      },
+      "visualization-I6Hi": {
+        "id": "visualization-I6Hi",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "tab-layout-90C4"
+      },
+      "visualization-JfSo": {
+        "id": "visualization-JfSo",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "tab-layout-nBaf"
+      },
+      "visualization-KY65": {
+        "id": "visualization-KY65",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "tab-layout-JmI4"
+      },
+      "visualization-Oq0N": {
+        "id": "visualization-Oq0N",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "root"
+      },
+      "visualization-Q9oH": {
+        "id": "visualization-Q9oH",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "root"
+      },
+      "visualization-Su_s": {
+        "id": "visualization-Su_s",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "root"
+      },
+      "visualization-UKUl": {
+        "id": "visualization-UKUl",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "root"
+      },
+      "visualization-VMeV": {
+        "id": "visualization-VMeV",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "root"
+      },
+      "visualization-Wo-g": {
+        "id": "visualization-Wo-g",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "root"
+      },
+      "visualization-d-KR": {
+        "id": "visualization-d-KR",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "root"
+      },
+      "visualization-mU1F": {
+        "id": "visualization-mU1F",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "tab-layout-T1li"
+      },
+      "visualization-qUOi": {
+        "id": "visualization-qUOi",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "tab-layout-xouK"
+      },
+      "visualization-qVmu": {
+        "id": "visualization-qVmu",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "root"
+      },
+      "visualization-uvX_": {
+        "id": "visualization-uvX_",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "tab-layout-wiYE"
+      }
+    },
+    "layouts": {
+      "text-H-d1": {
+        "id": "text-H-d1",
+        "x": 0,
+        "y": 0,
+        "h": 13,
+        "w": 12,
+        "static": false
+      },
+      "text-YxFH": {
+        "id": "text-YxFH",
+        "x": 0,
+        "y": 78,
+        "h": 42,
+        "w": 12,
+        "static": false
+      },
+      "root-header": {
+        "id": "root-header",
+        "x": 0,
+        "y": 0,
+        "h": 5,
+        "w": 12,
+        "static": true
+      },
+      "tab-layout-90C4": {
+        "id": "tab-layout-90C4",
+        "x": 0,
+        "y": 0,
+        "h": 34,
+        "w": 12
+      },
+      "tab-layout-JmI4": {
+        "id": "tab-layout-JmI4",
+        "x": 0,
+        "y": 0,
+        "h": 20,
+        "w": 12
+      },
+      "tab-layout-T1li": {
+        "id": "tab-layout-T1li",
+        "x": 0,
+        "y": 0,
+        "h": 34,
+        "w": 12
+      },
+      "tab-layout-nBaf": {
+        "id": "tab-layout-nBaf",
+        "x": 0,
+        "y": 0,
+        "h": 20,
+        "w": 12
+      },
+      "tab-layout-wiYE": {
+        "id": "tab-layout-wiYE",
+        "x": 0,
+        "y": 0,
+        "h": 20,
+        "w": 12
+      },
+      "tab-layout-xouK": {
+        "id": "tab-layout-xouK",
+        "x": 0,
+        "y": 0,
+        "h": 34,
+        "w": 12
+      },
+      "tabs-panel-QBJH": {
+        "id": "tabs-panel-QBJH",
+        "x": 0,
+        "y": 158,
+        "h": 41,
+        "w": 6,
+        "static": false
+      },
+      "tabs-panel-wiTK": {
+        "id": "tabs-panel-wiTK",
+        "x": 6,
+        "y": 158,
+        "h": 41,
+        "w": 6,
+        "static": false
+      },
+      "__dropping-elem__": {
+        "id": "__dropping-elem__",
+        "x": 0,
+        "y": 151,
+        "h": 1,
+        "w": 1,
+        "static": false
+      },
+      "visualization-0BvK": {
+        "id": "visualization-0BvK",
+        "x": 10,
+        "y": 13,
+        "h": 17,
+        "w": 2,
+        "static": false
+      },
+      "visualization-7GOH": {
+        "id": "visualization-7GOH",
+        "x": 0,
+        "y": 261,
+        "h": 29,
+        "w": 12,
+        "static": false
+      },
+      "visualization-9gNU": {
+        "id": "visualization-9gNU",
+        "x": 7,
+        "y": 47,
+        "h": 31,
+        "w": 5,
+        "static": false
+      },
+      "visualization-9oaj": {
+        "id": "visualization-9oaj",
+        "x": 9,
+        "y": 30,
+        "h": 17,
+        "w": 3,
+        "static": false
+      },
+      "visualization-I6Hi": {
+        "id": "visualization-I6Hi",
+        "x": 0,
+        "y": 0,
+        "h": 33,
+        "w": 12,
+        "static": false
+      },
+      "visualization-JfSo": {
+        "id": "visualization-JfSo",
+        "x": 0,
+        "y": 0,
+        "h": 33,
+        "w": 12,
+        "static": false
+      },
+      "visualization-KY65": {
+        "id": "visualization-KY65",
+        "x": 0,
+        "y": 0,
+        "h": 33,
+        "w": 12,
+        "static": false
+      },
+      "visualization-Oq0N": {
+        "id": "visualization-Oq0N",
+        "x": 6,
+        "y": 13,
+        "h": 17,
+        "w": 2,
+        "static": false
+      },
+      "visualization-Q9oH": {
+        "id": "visualization-Q9oH",
+        "x": 8,
+        "y": 13,
+        "h": 17,
+        "w": 2,
+        "static": false
+      },
+      "visualization-Su_s": {
+        "id": "visualization-Su_s",
+        "x": 0,
+        "y": 13,
+        "h": 34,
+        "w": 6,
+        "static": false
+      },
+      "visualization-UKUl": {
+        "id": "visualization-UKUl",
+        "x": 0,
+        "y": 120,
+        "h": 38,
+        "w": 12,
+        "static": false
+      },
+      "visualization-VMeV": {
+        "id": "visualization-VMeV",
+        "x": 6,
+        "y": 30,
+        "h": 17,
+        "w": 3,
+        "static": false
+      },
+      "visualization-Wo-g": {
+        "id": "visualization-Wo-g",
+        "x": 0,
+        "y": 199,
+        "h": 20,
+        "w": 12,
+        "static": false
+      },
+      "visualization-d-KR": {
+        "id": "visualization-d-KR",
+        "x": 0,
+        "y": 47,
+        "h": 31,
+        "w": 7,
+        "static": false
+      },
+      "visualization-mU1F": {
+        "id": "visualization-mU1F",
+        "x": 0,
+        "y": 0,
+        "h": 33,
+        "w": 12,
+        "static": false
+      },
+      "visualization-qUOi": {
+        "id": "visualization-qUOi",
+        "x": 0,
+        "y": 0,
+        "h": 33,
+        "w": 12,
+        "static": false
+      },
+      "visualization-qVmu": {
+        "id": "visualization-qVmu",
+        "x": 0,
+        "y": 219,
+        "h": 42,
+        "w": 12,
+        "static": false
+      },
+      "visualization-uvX_": {
+        "id": "visualization-uvX_",
+        "x": 0,
+        "y": 0,
+        "h": 33,
+        "w": 12,
+        "static": false
+      }
+    },
+    "mobileLayouts": {
+      "text-H-d1": {
+        "id": "text-H-d1",
+        "x": 0,
+        "y": 5,
+        "h": 13,
+        "w": 12,
+        "static": false
+      },
+      "text-YxFH": {
+        "id": "text-YxFH",
+        "x": 0,
+        "y": 199,
+        "h": 42,
+        "w": 12,
+        "static": false
+      },
+      "root-header": {
+        "id": "root-header",
+        "x": 0,
+        "y": 0,
+        "h": 6,
+        "w": 12,
+        "static": true
+      },
+      "tab-layout-90C4": {
+        "id": "tab-layout-90C4",
+        "x": 0,
+        "y": 34,
+        "h": 34,
+        "w": 12
+      },
+      "tab-layout-JmI4": {
+        "id": "tab-layout-JmI4",
+        "x": 0,
+        "y": 40,
+        "h": 20,
+        "w": 12
+      },
+      "tab-layout-T1li": {
+        "id": "tab-layout-T1li",
+        "x": 0,
+        "y": 68,
+        "h": 34,
+        "w": 12
+      },
+      "tab-layout-nBaf": {
+        "id": "tab-layout-nBaf",
+        "x": 0,
+        "y": 20,
+        "h": 20,
+        "w": 12
+      },
+      "tab-layout-wiYE": {
+        "id": "tab-layout-wiYE",
+        "x": 0,
+        "y": 0,
+        "h": 20,
+        "w": 12
+      },
+      "tab-layout-xouK": {
+        "id": "tab-layout-xouK",
+        "x": 0,
+        "y": 0,
+        "h": 34,
+        "w": 12
+      },
+      "tabs-panel-QBJH": {
+        "id": "tabs-panel-QBJH",
+        "x": 0,
+        "y": 279,
+        "h": 41,
+        "w": 12,
+        "static": false
+      },
+      "tabs-panel-wiTK": {
+        "id": "tabs-panel-wiTK",
+        "x": 0,
+        "y": 320,
+        "h": 41,
+        "w": 12,
+        "static": false
+      },
+      "visualization-0BvK": {
+        "id": "visualization-0BvK",
+        "x": 0,
+        "y": 86,
+        "h": 17,
+        "w": 12,
+        "static": false
+      },
+      "visualization-7GOH": {
+        "id": "visualization-7GOH",
+        "x": 0,
+        "y": 423,
+        "h": 29,
+        "w": 12,
+        "static": false
+      },
+      "visualization-9gNU": {
+        "id": "visualization-9gNU",
+        "x": 0,
+        "y": 168,
+        "h": 31,
+        "w": 12,
+        "static": false
+      },
+      "visualization-9oaj": {
+        "id": "visualization-9oaj",
+        "x": 0,
+        "y": 120,
+        "h": 17,
+        "w": 12,
+        "static": false
+      },
+      "visualization-I6Hi": {
+        "id": "visualization-I6Hi",
+        "x": 0,
+        "y": 0,
+        "h": 33,
+        "w": 12,
+        "static": false
+      },
+      "visualization-JfSo": {
+        "id": "visualization-JfSo",
+        "x": 0,
+        "y": 0,
+        "h": 33,
+        "w": 12,
+        "static": false
+      },
+      "visualization-KY65": {
+        "id": "visualization-KY65",
+        "x": 0,
+        "y": 0,
+        "h": 33,
+        "w": 12,
+        "static": false
+      },
+      "visualization-Oq0N": {
+        "id": "visualization-Oq0N",
+        "x": 0,
+        "y": 52,
+        "h": 17,
+        "w": 12,
+        "static": false
+      },
+      "visualization-Q9oH": {
+        "id": "visualization-Q9oH",
+        "x": 0,
+        "y": 69,
+        "h": 17,
+        "w": 12,
+        "static": false
+      },
+      "visualization-Su_s": {
+        "id": "visualization-Su_s",
+        "x": 0,
+        "y": 18,
+        "h": 34,
+        "w": 12,
+        "static": false
+      },
+      "visualization-UKUl": {
+        "id": "visualization-UKUl",
+        "x": 0,
+        "y": 241,
+        "h": 38,
+        "w": 12,
+        "static": false
+      },
+      "visualization-VMeV": {
+        "id": "visualization-VMeV",
+        "x": 0,
+        "y": 103,
+        "h": 17,
+        "w": 12,
+        "static": false
+      },
+      "visualization-Wo-g": {
+        "id": "visualization-Wo-g",
+        "x": 0,
+        "y": 361,
+        "h": 20,
+        "w": 12,
+        "static": false
+      },
+      "visualization-d-KR": {
+        "id": "visualization-d-KR",
+        "x": 0,
+        "y": 137,
+        "h": 31,
+        "w": 12,
+        "static": false
+      },
+      "visualization-mU1F": {
+        "id": "visualization-mU1F",
+        "x": 0,
+        "y": 0,
+        "h": 33,
+        "w": 12,
+        "static": false
+      },
+      "visualization-qUOi": {
+        "id": "visualization-qUOi",
+        "x": 0,
+        "y": 0,
+        "h": 33,
+        "w": 12,
+        "static": false
+      },
+      "visualization-qVmu": {
+        "id": "visualization-qVmu",
+        "x": 0,
+        "y": 381,
+        "h": 42,
+        "w": 12,
+        "static": false
+      },
+      "visualization-uvX_": {
+        "id": "visualization-uvX_",
+        "x": 0,
+        "y": 0,
+        "h": 33,
+        "w": 12,
+        "static": false
+      }
+    },
+    "contents": {
+      "root": {
+        "id": "root",
+        "title": "Root",
+        "description": "",
+        "variant": "root",
+        "theme": "dark"
+      },
+      "text-H-d1": {
+        "id": "text-H-d1",
+        "title": "Brief Explanation of NEAR Intents",
+        "description": "",
+        "showTitle": true,
+        "showDescription": true,
+        "variant": "text",
+        "html": "<p>NEAR Intents is a revolutionary transaction framework that bridges AI and blockchain technology, allowing users and AI agents to execute complex transactions across multiple blockchains seamlessly. Launched in beta in November 2024, it simplifies the traditionally complex DeFi experience by letting users express what they want to accomplish, while the system figures out how to execute it efficiently. Learn more at https://near.org/intents.</p><p>Please note, bridged tokens are regularly minting under new slugs and there may not be an immediate mapping available to the accepted token contract. Thus, any aggregate amount in USD may be missing tokens for which there is not a price. Please refer directly to the table NEAR.DEFI.EZ_INTENTS or FACT_INTENTS for raw data.</p>"
+      },
+      "text-YxFH": {
+        "id": "text-YxFH",
+        "title": "Cross-Chain Interactions Explained",
+        "description": "",
+        "showTitle": true,
+        "showDescription": true,
+        "variant": "text",
+        "html": "<p><strong>What Are Intents?</strong><br>Intents represent a user's desired outcome rather than the specific steps to achieve it. Instead of manually navigating different chains and protocols, users simply declare what they want to accomplish - like trading one asset for another.</p><p><strong>How It Works</strong><br> NEAR Intents operates through: </p><ul class=\"list-disc pl-5\"><li><p>A decentralized network of \"solvers\" that find the best way to execute transactions</p></li><li><p>Chain abstraction technology that eliminates the need for traditional bridges</p></li><li><p>An intent-based model that sources liquidity from multiple sources (DeFi, CeFi, and off-chain)</p></li></ul><p></p><p><strong>Key Features</strong><br>The system enables seamless trading of any asset across any blockchain through: </p><ul class=\"list-disc pl-5\"><li><p>Unified liquidity access across all chains</p></li><li><p>No requirement for bridging or wrapping assets</p></li><li><p>Support for both simple swaps and complex DeFi operations</p></li><li><p>Integration with AI agents for automated trading and optimization</p></li></ul><p>This architecture allows for better pricing and reduced risks compared to traditional cross-chain solutions, while maintaining security and reliability. The platform supports not just token transfers, but also account-level operations, including the management of various digital assets like NFTs and Soulbound Tokens</p>"
+      },
+      "root-header": {
+        "id": "root-header",
+        "variant": "header",
+        "dashboardTitle": "NEAR Intents | Insights",
+        "dashboardDescription": "Track NEAR Intents activity across multiple blockchains, visualizing transaction volumes and cross-chain interactions."
+      },
+      "tab-layout-90C4": {
+        "id": "tab-layout-90C4",
+        "title": "Weekly",
+        "description": "Tabs Layout Description",
+        "showTitle": false,
+        "showDescription": false,
+        "variant": "tab-layout"
+      },
+      "tab-layout-JmI4": {
+        "id": "tab-layout-JmI4",
+        "title": "Monthly",
+        "description": "Tabs Layout Description",
+        "showTitle": false,
+        "showDescription": false,
+        "variant": "tab-layout"
+      },
+      "tab-layout-T1li": {
+        "id": "tab-layout-T1li",
+        "title": "Monthly",
+        "description": "Tabs Layout Description",
+        "showTitle": false,
+        "showDescription": false,
+        "variant": "tab-layout"
+      },
+      "tab-layout-nBaf": {
+        "id": "tab-layout-nBaf",
+        "title": "Weekly",
+        "description": "Tabs Layout Description",
+        "showTitle": false,
+        "showDescription": false,
+        "variant": "tab-layout"
+      },
+      "tab-layout-wiYE": {
+        "id": "tab-layout-wiYE",
+        "title": "Daily",
+        "description": "Tabs Layout Description",
+        "showTitle": false,
+        "showDescription": false,
+        "variant": "tab-layout"
+      },
+      "tab-layout-xouK": {
+        "id": "tab-layout-xouK",
+        "title": "Daily",
+        "description": "Tabs Layout Description",
+        "showTitle": false,
+        "showDescription": false,
+        "variant": "tab-layout"
+      },
+      "tabs-panel-QBJH": {
+        "id": "tabs-panel-QBJH",
+        "title": "Cross-chain Volume",
+        "description": "",
+        "showTitle": true,
+        "showDescription": true,
+        "variant": "tabs-panel"
+      },
+      "tabs-panel-wiTK": {
+        "id": "tabs-panel-wiTK",
+        "title": "Cross-chain Intents",
+        "description": "",
+        "showTitle": true,
+        "showDescription": true,
+        "variant": "tabs-panel"
+      },
+      "visualization-0BvK": {
+        "id": "visualization-0BvK",
+        "variant": "visualization",
+        "visId": "4db7a23c-699d-4fc3-8553-2cb9a40bcc18",
+        "queryId": "5e5d6d52-306e-4e80-98d8-8cdf146b06ca"
+      },
+      "visualization-7GOH": {
+        "id": "visualization-7GOH",
+        "variant": "visualization",
+        "visId": "d7078c67-69f5-4dad-9d75-a8a41ca60146",
+        "queryId": "cb5b627e-867d-4a46-a7e6-af713c434f01"
+      },
+      "visualization-9gNU": {
+        "id": "visualization-9gNU",
+        "variant": "visualization",
+        "visId": "f154fda3-29dd-4e70-a2a5-612d4063b6c1",
+        "queryId": "b0c8ca65-69bc-4aa4-8f84-6a6be995fd85"
+      },
+      "visualization-9oaj": {
+        "id": "visualization-9oaj",
+        "title": "EVM TVL",
+        "variant": "visualization",
+        "visId": "43bcd1a3-e66e-4af9-b526-91b0787260e5",
+        "queryId": "a311b965-81a4-4e0f-8e22-bbc9035d1991"
+      },
+      "visualization-I6Hi": {
+        "id": "visualization-I6Hi",
+        "variant": "visualization",
+        "visId": "e1b6b0d7-19ed-4ec8-aa51-d3d1303c77b9",
+        "queryId": "e5ef79d8-255b-4201-a541-ef9e000cdad6"
+      },
+      "visualization-JfSo": {
+        "id": "visualization-JfSo",
+        "variant": "visualization",
+        "visId": "a1659099-ef62-4a12-bbce-fed91238ff33",
+        "queryId": "79693e2e-3e09-4c84-87c9-e3ad0f0e5e26"
+      },
+      "visualization-KY65": {
+        "id": "visualization-KY65",
+        "variant": "visualization",
+        "visId": "1a13e4ec-d096-4335-a9e1-6f23f17b57c6",
+        "queryId": "b6031867-085c-41c9-9dc8-2bf38e55dfcf"
+      },
+      "visualization-Oq0N": {
+        "id": "visualization-Oq0N",
+        "variant": "visualization",
+        "visId": "816c6191-5db6-4b27-96cc-2e4f6ed05aaf",
+        "queryId": "5e5d6d52-306e-4e80-98d8-8cdf146b06ca"
+      },
+      "visualization-Q9oH": {
+        "id": "visualization-Q9oH",
+        "variant": "visualization",
+        "visId": "6b313e5b-6325-441b-859c-13f3501ec7d5",
+        "queryId": "5e5d6d52-306e-4e80-98d8-8cdf146b06ca"
+      },
+      "visualization-Su_s": {
+        "id": "visualization-Su_s",
+        "title": "TVL by Token",
+        "variant": "visualization",
+        "visId": "3b077ff4-1517-49d0-acb7-bbccc9ca6de0",
+        "queryId": "7f021203-3a65-4385-893c-db497f39626a"
+      },
+      "visualization-UKUl": {
+        "id": "visualization-UKUl",
+        "variant": "visualization",
+        "visId": "bfa47adf-d311-4d21-bc29-97e1934f3cdb",
+        "queryId": "4ba04785-fef5-4c5c-8093-ec0533664679"
+      },
+      "visualization-VMeV": {
+        "id": "visualization-VMeV",
+        "title": "Total Value Locked",
+        "variant": "visualization",
+        "visId": "3577144d-64b4-4aa2-9a33-a819a24a0c2a",
+        "queryId": "bb4f5323-4c99-4406-8d9f-8075d0ec128d"
+      },
+      "visualization-Wo-g": {
+        "id": "visualization-Wo-g",
+        "title": "Intent Users, by day",
+        "variant": "visualization",
+        "visId": "3c42ce9a-aa54-49a8-8f86-3c23eca917aa",
+        "queryId": "fbd560f8-8163-4bd1-bda2-40739f6ae453"
+      },
+      "visualization-d-KR": {
+        "id": "visualization-d-KR",
+        "variant": "visualization",
+        "visId": "ca8b25cd-a0cc-40a7-8048-0f7203dafb21",
+        "queryId": "b0c8ca65-69bc-4aa4-8f84-6a6be995fd85"
+      },
+      "visualization-mU1F": {
+        "id": "visualization-mU1F",
+        "variant": "visualization",
+        "visId": "047180f0-2ea1-4804-95e8-33dc0262e645",
+        "queryId": "88ce1975-e4d9-4dc6-bc5d-cb2582720341"
+      },
+      "visualization-qUOi": {
+        "id": "visualization-qUOi",
+        "variant": "visualization",
+        "visId": "75391d4e-62a6-4491-b707-9c1e45780a07",
+        "queryId": "f20a4b18-34e3-482b-84f8-ccb24c68bed5"
+      },
+      "visualization-qVmu": {
+        "id": "visualization-qVmu",
+        "title": "TVL Segmentation",
+        "variant": "visualization",
+        "visId": "2a83289b-1b91-4c5c-adcf-23c78d9eeee0",
+        "queryId": "2a36bf79-1b03-45eb-8acb-04eac6fdd4b0"
+      },
+      "visualization-uvX_": {
+        "id": "visualization-uvX_",
+        "variant": "visualization",
+        "visId": "605bb842-e63e-4046-a0de-a7221c057743",
+        "queryId": "1e72a0c0-cb6c-4cad-88a6-6b95fc523789"
+      }
+    },
+    "styles": {
+      "root": {
+        "id": "root",
+        "variant": "root",
+        "background": {
+          "type": "solid",
+          "appColor": "bg-background"
+        },
+        "shadow": "sm",
+        "dashboardBackground": {
+          "type": "solid",
+          "appColor": "bg-muted"
+        }
+      },
+      "text-H-d1": {
+        "id": "text-H-d1",
+        "variant": "text"
+      },
+      "text-YxFH": {
+        "id": "text-YxFH",
+        "variant": "text"
+      },
+      "root-header": {
+        "id": "root-header",
+        "variant": "header",
+        "vertAlignKey": "start",
+        "background": {
+          "type": "solid",
+          "appColor": "bg-background"
+        }
+      },
+      "tab-layout-90C4": {
+        "id": "tab-layout-90C4",
+        "variant": "tab-layout",
+        "border": {
+          "width": 0
+        }
+      },
+      "tab-layout-JmI4": {
+        "id": "tab-layout-JmI4",
+        "variant": "tab-layout",
+        "border": {
+          "width": 0
+        }
+      },
+      "tab-layout-T1li": {
+        "id": "tab-layout-T1li",
+        "variant": "tab-layout",
+        "border": {
+          "width": 0
+        }
+      },
+      "tab-layout-nBaf": {
+        "id": "tab-layout-nBaf",
+        "variant": "tab-layout",
+        "border": {
+          "width": 0
+        }
+      },
+      "tab-layout-wiYE": {
+        "id": "tab-layout-wiYE",
+        "variant": "tab-layout"
+      },
+      "tab-layout-xouK": {
+        "id": "tab-layout-xouK",
+        "variant": "tab-layout"
+      },
+      "tabs-panel-QBJH": {
+        "id": "tabs-panel-QBJH",
+        "variant": "tabs-panel"
+      },
+      "tabs-panel-wiTK": {
+        "id": "tabs-panel-wiTK",
+        "variant": "tabs-panel"
+      },
+      "visualization-0BvK": {
+        "id": "visualization-0BvK",
+        "variant": "visualization"
+      },
+      "visualization-7GOH": {
+        "id": "visualization-7GOH",
+        "variant": "visualization"
+      },
+      "visualization-9gNU": {
+        "id": "visualization-9gNU",
+        "variant": "visualization"
+      },
+      "visualization-9oaj": {
+        "id": "visualization-9oaj",
+        "variant": "visualization"
+      },
+      "visualization-I6Hi": {
+        "id": "visualization-I6Hi",
+        "variant": "visualization"
+      },
+      "visualization-JfSo": {
+        "id": "visualization-JfSo",
+        "variant": "visualization"
+      },
+      "visualization-KY65": {
+        "id": "visualization-KY65",
+        "variant": "visualization"
+      },
+      "visualization-Oq0N": {
+        "id": "visualization-Oq0N",
+        "variant": "visualization"
+      },
+      "visualization-Q9oH": {
+        "id": "visualization-Q9oH",
+        "variant": "visualization"
+      },
+      "visualization-Su_s": {
+        "id": "visualization-Su_s",
+        "variant": "visualization"
+      },
+      "visualization-UKUl": {
+        "id": "visualization-UKUl",
+        "variant": "visualization"
+      },
+      "visualization-VMeV": {
+        "id": "visualization-VMeV",
+        "variant": "visualization"
+      },
+      "visualization-Wo-g": {
+        "id": "visualization-Wo-g",
+        "variant": "visualization"
+      },
+      "visualization-d-KR": {
+        "id": "visualization-d-KR",
+        "variant": "visualization"
+      },
+      "visualization-mU1F": {
+        "id": "visualization-mU1F",
+        "variant": "visualization"
+      },
+      "visualization-qUOi": {
+        "id": "visualization-qUOi",
+        "variant": "visualization"
+      },
+      "visualization-qVmu": {
+        "id": "visualization-qVmu",
+        "variant": "visualization"
+      },
+      "visualization-uvX_": {
+        "id": "visualization-uvX_",
+        "variant": "visualization"
+      }
+    },
+    "dataSources": {}
+  },
+  "publishedConfig": {
+    "cells": {
+      "root": {
+        "id": "root",
+        "variant": "root",
+        "childCellIds": [
+          "root-header",
+          "visualization-Su_s",
+          "visualization-qVmu",
+          "visualization-Wo-g",
+          "visualization-VMeV",
+          "visualization-Oq0N",
+          "visualization-Q9oH",
+          "visualization-0BvK",
+          "text-H-d1",
+          "text-YxFH",
+          "visualization-9oaj",
+          "visualization-UKUl",
+          "visualization-7GOH",
+          "visualization-d-KR",
+          "visualization-9gNU",
+          "tabs-panel-wiTK",
+          "tabs-panel-QBJH"
+        ],
+        "parentCellId": null
+      },
+      "text-H-d1": {
+        "id": "text-H-d1",
+        "variant": "text",
+        "childCellIds": [],
+        "parentCellId": "root"
+      },
+      "text-YxFH": {
+        "id": "text-YxFH",
+        "variant": "text",
+        "childCellIds": [],
+        "parentCellId": "root"
+      },
+      "root-header": {
+        "id": "root-header",
+        "variant": "header",
+        "childCellIds": [],
+        "parentCellId": "root"
+      },
+      "tab-layout-90C4": {
+        "id": "tab-layout-90C4",
+        "variant": "tab-layout",
+        "childCellIds": [
+          "visualization-I6Hi"
+        ],
+        "parentCellId": "tabs-panel-QBJH"
+      },
+      "tab-layout-JmI4": {
+        "id": "tab-layout-JmI4",
+        "variant": "tab-layout",
+        "childCellIds": [
+          "visualization-KY65"
+        ],
+        "parentCellId": "tabs-panel-wiTK"
+      },
+      "tab-layout-T1li": {
+        "id": "tab-layout-T1li",
+        "variant": "tab-layout",
+        "childCellIds": [
+          "visualization-mU1F"
+        ],
+        "parentCellId": "tabs-panel-QBJH"
+      },
+      "tab-layout-nBaf": {
+        "id": "tab-layout-nBaf",
+        "variant": "tab-layout",
+        "childCellIds": [
+          "visualization-JfSo"
+        ],
+        "parentCellId": "tabs-panel-wiTK"
+      },
+      "tab-layout-wiYE": {
+        "id": "tab-layout-wiYE",
+        "variant": "tab-layout",
+        "childCellIds": [
+          "visualization-uvX_"
+        ],
+        "parentCellId": "tabs-panel-wiTK"
+      },
+      "tab-layout-xouK": {
+        "id": "tab-layout-xouK",
+        "variant": "tab-layout",
+        "childCellIds": [
+          "visualization-qUOi"
+        ],
+        "parentCellId": "tabs-panel-QBJH"
+      },
+      "tabs-panel-QBJH": {
+        "id": "tabs-panel-QBJH",
+        "variant": "tabs-panel",
+        "childCellIds": [
+          "tab-layout-xouK",
+          "tab-layout-90C4",
+          "tab-layout-T1li"
+        ],
+        "parentCellId": "root"
+      },
+      "tabs-panel-wiTK": {
+        "id": "tabs-panel-wiTK",
+        "variant": "tabs-panel",
+        "childCellIds": [
+          "tab-layout-wiYE",
+          "tab-layout-nBaf",
+          "tab-layout-JmI4"
+        ],
+        "parentCellId": "root"
+      },
+      "visualization-0BvK": {
+        "id": "visualization-0BvK",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "root"
+      },
+      "visualization-7GOH": {
+        "id": "visualization-7GOH",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "root"
+      },
+      "visualization-9gNU": {
+        "id": "visualization-9gNU",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "root"
+      },
+      "visualization-9oaj": {
+        "id": "visualization-9oaj",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "root"
+      },
+      "visualization-I6Hi": {
+        "id": "visualization-I6Hi",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "tab-layout-90C4"
+      },
+      "visualization-JfSo": {
+        "id": "visualization-JfSo",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "tab-layout-nBaf"
+      },
+      "visualization-KY65": {
+        "id": "visualization-KY65",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "tab-layout-JmI4"
+      },
+      "visualization-Oq0N": {
+        "id": "visualization-Oq0N",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "root"
+      },
+      "visualization-Q9oH": {
+        "id": "visualization-Q9oH",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "root"
+      },
+      "visualization-Su_s": {
+        "id": "visualization-Su_s",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "root"
+      },
+      "visualization-UKUl": {
+        "id": "visualization-UKUl",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "root"
+      },
+      "visualization-VMeV": {
+        "id": "visualization-VMeV",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "root"
+      },
+      "visualization-Wo-g": {
+        "id": "visualization-Wo-g",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "root"
+      },
+      "visualization-d-KR": {
+        "id": "visualization-d-KR",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "root"
+      },
+      "visualization-mU1F": {
+        "id": "visualization-mU1F",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "tab-layout-T1li"
+      },
+      "visualization-qUOi": {
+        "id": "visualization-qUOi",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "tab-layout-xouK"
+      },
+      "visualization-qVmu": {
+        "id": "visualization-qVmu",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "root"
+      },
+      "visualization-uvX_": {
+        "id": "visualization-uvX_",
+        "variant": "visualization",
+        "childCellIds": [],
+        "parentCellId": "tab-layout-wiYE"
+      }
+    },
+    "layouts": {
+      "text-H-d1": {
+        "id": "text-H-d1",
+        "x": 0,
+        "y": 0,
+        "h": 13,
+        "w": 12,
+        "static": false
+      },
+      "text-YxFH": {
+        "id": "text-YxFH",
+        "x": 0,
+        "y": 78,
+        "h": 42,
+        "w": 12,
+        "static": false
+      },
+      "root-header": {
+        "id": "root-header",
+        "x": 0,
+        "y": 0,
+        "h": 5,
+        "w": 12,
+        "static": true
+      },
+      "tab-layout-90C4": {
+        "id": "tab-layout-90C4",
+        "x": 0,
+        "y": 0,
+        "h": 34,
+        "w": 12
+      },
+      "tab-layout-JmI4": {
+        "id": "tab-layout-JmI4",
+        "x": 0,
+        "y": 0,
+        "h": 20,
+        "w": 12
+      },
+      "tab-layout-T1li": {
+        "id": "tab-layout-T1li",
+        "x": 0,
+        "y": 0,
+        "h": 34,
+        "w": 12
+      },
+      "tab-layout-nBaf": {
+        "id": "tab-layout-nBaf",
+        "x": 0,
+        "y": 0,
+        "h": 20,
+        "w": 12
+      },
+      "tab-layout-wiYE": {
+        "id": "tab-layout-wiYE",
+        "x": 0,
+        "y": 0,
+        "h": 20,
+        "w": 12
+      },
+      "tab-layout-xouK": {
+        "id": "tab-layout-xouK",
+        "x": 0,
+        "y": 0,
+        "h": 34,
+        "w": 12
+      },
+      "tabs-panel-QBJH": {
+        "id": "tabs-panel-QBJH",
+        "x": 0,
+        "y": 158,
+        "h": 41,
+        "w": 6,
+        "static": false
+      },
+      "tabs-panel-wiTK": {
+        "id": "tabs-panel-wiTK",
+        "x": 6,
+        "y": 158,
+        "h": 41,
+        "w": 6,
+        "static": false
+      },
+      "__dropping-elem__": {
+        "id": "__dropping-elem__",
+        "x": 0,
+        "y": 151,
+        "h": 1,
+        "w": 1,
+        "static": false
+      },
+      "visualization-0BvK": {
+        "id": "visualization-0BvK",
+        "x": 10,
+        "y": 13,
+        "h": 17,
+        "w": 2,
+        "static": false
+      },
+      "visualization-7GOH": {
+        "id": "visualization-7GOH",
+        "x": 0,
+        "y": 261,
+        "h": 29,
+        "w": 12,
+        "static": false
+      },
+      "visualization-9gNU": {
+        "id": "visualization-9gNU",
+        "x": 7,
+        "y": 47,
+        "h": 31,
+        "w": 5,
+        "static": false
+      },
+      "visualization-9oaj": {
+        "id": "visualization-9oaj",
+        "x": 9,
+        "y": 30,
+        "h": 17,
+        "w": 3,
+        "static": false
+      },
+      "visualization-I6Hi": {
+        "id": "visualization-I6Hi",
+        "x": 0,
+        "y": 0,
+        "h": 33,
+        "w": 12,
+        "static": false
+      },
+      "visualization-JfSo": {
+        "id": "visualization-JfSo",
+        "x": 0,
+        "y": 0,
+        "h": 33,
+        "w": 12,
+        "static": false
+      },
+      "visualization-KY65": {
+        "id": "visualization-KY65",
+        "x": 0,
+        "y": 0,
+        "h": 33,
+        "w": 12,
+        "static": false
+      },
+      "visualization-Oq0N": {
+        "id": "visualization-Oq0N",
+        "x": 6,
+        "y": 13,
+        "h": 17,
+        "w": 2,
+        "static": false
+      },
+      "visualization-Q9oH": {
+        "id": "visualization-Q9oH",
+        "x": 8,
+        "y": 13,
+        "h": 17,
+        "w": 2,
+        "static": false
+      },
+      "visualization-Su_s": {
+        "id": "visualization-Su_s",
+        "x": 0,
+        "y": 13,
+        "h": 34,
+        "w": 6,
+        "static": false
+      },
+      "visualization-UKUl": {
+        "id": "visualization-UKUl",
+        "x": 0,
+        "y": 120,
+        "h": 38,
+        "w": 12,
+        "static": false
+      },
+      "visualization-VMeV": {
+        "id": "visualization-VMeV",
+        "x": 6,
+        "y": 30,
+        "h": 17,
+        "w": 3,
+        "static": false
+      },
+      "visualization-Wo-g": {
+        "id": "visualization-Wo-g",
+        "x": 0,
+        "y": 199,
+        "h": 20,
+        "w": 12,
+        "static": false
+      },
+      "visualization-d-KR": {
+        "id": "visualization-d-KR",
+        "x": 0,
+        "y": 47,
+        "h": 31,
+        "w": 7,
+        "static": false
+      },
+      "visualization-mU1F": {
+        "id": "visualization-mU1F",
+        "x": 0,
+        "y": 0,
+        "h": 33,
+        "w": 12,
+        "static": false
+      },
+      "visualization-qUOi": {
+        "id": "visualization-qUOi",
+        "x": 0,
+        "y": 0,
+        "h": 33,
+        "w": 12,
+        "static": false
+      },
+      "visualization-qVmu": {
+        "id": "visualization-qVmu",
+        "x": 0,
+        "y": 219,
+        "h": 42,
+        "w": 12,
+        "static": false
+      },
+      "visualization-uvX_": {
+        "id": "visualization-uvX_",
+        "x": 0,
+        "y": 0,
+        "h": 33,
+        "w": 12,
+        "static": false
+      }
+    },
+    "mobileLayouts": {
+      "text-H-d1": {
+        "id": "text-H-d1",
+        "x": 0,
+        "y": 5,
+        "h": 13,
+        "w": 12,
+        "static": false
+      },
+      "text-YxFH": {
+        "id": "text-YxFH",
+        "x": 0,
+        "y": 199,
+        "h": 42,
+        "w": 12,
+        "static": false
+      },
+      "root-header": {
+        "id": "root-header",
+        "x": 0,
+        "y": 0,
+        "h": 6,
+        "w": 12,
+        "static": true
+      },
+      "tab-layout-90C4": {
+        "id": "tab-layout-90C4",
+        "x": 0,
+        "y": 34,
+        "h": 34,
+        "w": 12
+      },
+      "tab-layout-JmI4": {
+        "id": "tab-layout-JmI4",
+        "x": 0,
+        "y": 40,
+        "h": 20,
+        "w": 12
+      },
+      "tab-layout-T1li": {
+        "id": "tab-layout-T1li",
+        "x": 0,
+        "y": 68,
+        "h": 34,
+        "w": 12
+      },
+      "tab-layout-nBaf": {
+        "id": "tab-layout-nBaf",
+        "x": 0,
+        "y": 20,
+        "h": 20,
+        "w": 12
+      },
+      "tab-layout-wiYE": {
+        "id": "tab-layout-wiYE",
+        "x": 0,
+        "y": 0,
+        "h": 20,
+        "w": 12
+      },
+      "tab-layout-xouK": {
+        "id": "tab-layout-xouK",
+        "x": 0,
+        "y": 0,
+        "h": 34,
+        "w": 12
+      },
+      "tabs-panel-QBJH": {
+        "id": "tabs-panel-QBJH",
+        "x": 0,
+        "y": 279,
+        "h": 41,
+        "w": 12,
+        "static": false
+      },
+      "tabs-panel-wiTK": {
+        "id": "tabs-panel-wiTK",
+        "x": 0,
+        "y": 320,
+        "h": 41,
+        "w": 12,
+        "static": false
+      },
+      "visualization-0BvK": {
+        "id": "visualization-0BvK",
+        "x": 0,
+        "y": 86,
+        "h": 17,
+        "w": 12,
+        "static": false
+      },
+      "visualization-7GOH": {
+        "id": "visualization-7GOH",
+        "x": 0,
+        "y": 423,
+        "h": 29,
+        "w": 12,
+        "static": false
+      },
+      "visualization-9gNU": {
+        "id": "visualization-9gNU",
+        "x": 0,
+        "y": 168,
+        "h": 31,
+        "w": 12,
+        "static": false
+      },
+      "visualization-9oaj": {
+        "id": "visualization-9oaj",
+        "x": 0,
+        "y": 120,
+        "h": 17,
+        "w": 12,
+        "static": false
+      },
+      "visualization-I6Hi": {
+        "id": "visualization-I6Hi",
+        "x": 0,
+        "y": 0,
+        "h": 33,
+        "w": 12,
+        "static": false
+      },
+      "visualization-JfSo": {
+        "id": "visualization-JfSo",
+        "x": 0,
+        "y": 0,
+        "h": 33,
+        "w": 12,
+        "static": false
+      },
+      "visualization-KY65": {
+        "id": "visualization-KY65",
+        "x": 0,
+        "y": 0,
+        "h": 33,
+        "w": 12,
+        "static": false
+      },
+      "visualization-Oq0N": {
+        "id": "visualization-Oq0N",
+        "x": 0,
+        "y": 52,
+        "h": 17,
+        "w": 12,
+        "static": false
+      },
+      "visualization-Q9oH": {
+        "id": "visualization-Q9oH",
+        "x": 0,
+        "y": 69,
+        "h": 17,
+        "w": 12,
+        "static": false
+      },
+      "visualization-Su_s": {
+        "id": "visualization-Su_s",
+        "x": 0,
+        "y": 18,
+        "h": 34,
+        "w": 12,
+        "static": false
+      },
+      "visualization-UKUl": {
+        "id": "visualization-UKUl",
+        "x": 0,
+        "y": 241,
+        "h": 38,
+        "w": 12,
+        "static": false
+      },
+      "visualization-VMeV": {
+        "id": "visualization-VMeV",
+        "x": 0,
+        "y": 103,
+        "h": 17,
+        "w": 12,
+        "static": false
+      },
+      "visualization-Wo-g": {
+        "id": "visualization-Wo-g",
+        "x": 0,
+        "y": 361,
+        "h": 20,
+        "w": 12,
+        "static": false
+      },
+      "visualization-d-KR": {
+        "id": "visualization-d-KR",
+        "x": 0,
+        "y": 137,
+        "h": 31,
+        "w": 12,
+        "static": false
+      },
+      "visualization-mU1F": {
+        "id": "visualization-mU1F",
+        "x": 0,
+        "y": 0,
+        "h": 33,
+        "w": 12,
+        "static": false
+      },
+      "visualization-qUOi": {
+        "id": "visualization-qUOi",
+        "x": 0,
+        "y": 0,
+        "h": 33,
+        "w": 12,
+        "static": false
+      },
+      "visualization-qVmu": {
+        "id": "visualization-qVmu",
+        "x": 0,
+        "y": 381,
+        "h": 42,
+        "w": 12,
+        "static": false
+      },
+      "visualization-uvX_": {
+        "id": "visualization-uvX_",
+        "x": 0,
+        "y": 0,
+        "h": 33,
+        "w": 12,
+        "static": false
+      }
+    },
+    "contents": {
+      "root": {
+        "id": "root",
+        "title": "Root",
+        "description": "",
+        "variant": "root",
+        "theme": "dark"
+      },
+      "text-H-d1": {
+        "id": "text-H-d1",
+        "title": "Brief Explanation of NEAR Intents",
+        "description": "",
+        "showTitle": true,
+        "showDescription": true,
+        "variant": "text",
+        "html": "<p>NEAR Intents is a revolutionary transaction framework that bridges AI and blockchain technology, allowing users and AI agents to execute complex transactions across multiple blockchains seamlessly. Launched in beta in November 2024, it simplifies the traditionally complex DeFi experience by letting users express what they want to accomplish, while the system figures out how to execute it efficiently. Learn more at https://near.org/intents.</p><p>Please note, bridged tokens are regularly minting under new slugs and there may not be an immediate mapping available to the accepted token contract. Thus, any aggregate amount in USD may be missing tokens for which there is not a price. Please refer directly to the table NEAR.DEFI.EZ_INTENTS or FACT_INTENTS for raw data.</p>"
+      },
+      "text-YxFH": {
+        "id": "text-YxFH",
+        "title": "Cross-Chain Interactions Explained",
+        "description": "",
+        "showTitle": true,
+        "showDescription": true,
+        "variant": "text",
+        "html": "<p><strong>What Are Intents?</strong><br>Intents represent a user's desired outcome rather than the specific steps to achieve it. Instead of manually navigating different chains and protocols, users simply declare what they want to accomplish - like trading one asset for another.</p><p><strong>How It Works</strong><br> NEAR Intents operates through: </p><ul class=\"list-disc pl-5\"><li><p>A decentralized network of \"solvers\" that find the best way to execute transactions</p></li><li><p>Chain abstraction technology that eliminates the need for traditional bridges</p></li><li><p>An intent-based model that sources liquidity from multiple sources (DeFi, CeFi, and off-chain)</p></li></ul><p></p><p><strong>Key Features</strong><br>The system enables seamless trading of any asset across any blockchain through: </p><ul class=\"list-disc pl-5\"><li><p>Unified liquidity access across all chains</p></li><li><p>No requirement for bridging or wrapping assets</p></li><li><p>Support for both simple swaps and complex DeFi operations</p></li><li><p>Integration with AI agents for automated trading and optimization</p></li></ul><p>This architecture allows for better pricing and reduced risks compared to traditional cross-chain solutions, while maintaining security and reliability. The platform supports not just token transfers, but also account-level operations, including the management of various digital assets like NFTs and Soulbound Tokens</p>"
+      },
+      "root-header": {
+        "id": "root-header",
+        "variant": "header",
+        "dashboardTitle": "NEAR Intents | Insights",
+        "dashboardDescription": "Track NEAR Intents activity across multiple blockchains, visualizing transaction volumes and cross-chain interactions."
+      },
+      "tab-layout-90C4": {
+        "id": "tab-layout-90C4",
+        "title": "Weekly",
+        "description": "Tabs Layout Description",
+        "showTitle": false,
+        "showDescription": false,
+        "variant": "tab-layout"
+      },
+      "tab-layout-JmI4": {
+        "id": "tab-layout-JmI4",
+        "title": "Monthly",
+        "description": "Tabs Layout Description",
+        "showTitle": false,
+        "showDescription": false,
+        "variant": "tab-layout"
+      },
+      "tab-layout-T1li": {
+        "id": "tab-layout-T1li",
+        "title": "Monthly",
+        "description": "Tabs Layout Description",
+        "showTitle": false,
+        "showDescription": false,
+        "variant": "tab-layout"
+      },
+      "tab-layout-nBaf": {
+        "id": "tab-layout-nBaf",
+        "title": "Weekly",
+        "description": "Tabs Layout Description",
+        "showTitle": false,
+        "showDescription": false,
+        "variant": "tab-layout"
+      },
+      "tab-layout-wiYE": {
+        "id": "tab-layout-wiYE",
+        "title": "Daily",
+        "description": "Tabs Layout Description",
+        "showTitle": false,
+        "showDescription": false,
+        "variant": "tab-layout"
+      },
+      "tab-layout-xouK": {
+        "id": "tab-layout-xouK",
+        "title": "Daily",
+        "description": "Tabs Layout Description",
+        "showTitle": false,
+        "showDescription": false,
+        "variant": "tab-layout"
+      },
+      "tabs-panel-QBJH": {
+        "id": "tabs-panel-QBJH",
+        "title": "Cross-chain Volume",
+        "description": "",
+        "showTitle": true,
+        "showDescription": true,
+        "variant": "tabs-panel"
+      },
+      "tabs-panel-wiTK": {
+        "id": "tabs-panel-wiTK",
+        "title": "Cross-chain Intents",
+        "description": "",
+        "showTitle": true,
+        "showDescription": true,
+        "variant": "tabs-panel"
+      },
+      "visualization-0BvK": {
+        "id": "visualization-0BvK",
+        "variant": "visualization",
+        "visId": "4db7a23c-699d-4fc3-8553-2cb9a40bcc18",
+        "queryId": "5e5d6d52-306e-4e80-98d8-8cdf146b06ca"
+      },
+      "visualization-7GOH": {
+        "id": "visualization-7GOH",
+        "variant": "visualization",
+        "visId": "d7078c67-69f5-4dad-9d75-a8a41ca60146",
+        "queryId": "cb5b627e-867d-4a46-a7e6-af713c434f01"
+      },
+      "visualization-9gNU": {
+        "id": "visualization-9gNU",
+        "variant": "visualization",
+        "visId": "f154fda3-29dd-4e70-a2a5-612d4063b6c1",
+        "queryId": "b0c8ca65-69bc-4aa4-8f84-6a6be995fd85"
+      },
+      "visualization-9oaj": {
+        "id": "visualization-9oaj",
+        "title": "EVM TVL",
+        "variant": "visualization",
+        "visId": "43bcd1a3-e66e-4af9-b526-91b0787260e5",
+        "queryId": "a311b965-81a4-4e0f-8e22-bbc9035d1991"
+      },
+      "visualization-I6Hi": {
+        "id": "visualization-I6Hi",
+        "variant": "visualization",
+        "visId": "e1b6b0d7-19ed-4ec8-aa51-d3d1303c77b9",
+        "queryId": "e5ef79d8-255b-4201-a541-ef9e000cdad6"
+      },
+      "visualization-JfSo": {
+        "id": "visualization-JfSo",
+        "variant": "visualization",
+        "visId": "a1659099-ef62-4a12-bbce-fed91238ff33",
+        "queryId": "79693e2e-3e09-4c84-87c9-e3ad0f0e5e26"
+      },
+      "visualization-KY65": {
+        "id": "visualization-KY65",
+        "variant": "visualization",
+        "visId": "1a13e4ec-d096-4335-a9e1-6f23f17b57c6",
+        "queryId": "b6031867-085c-41c9-9dc8-2bf38e55dfcf"
+      },
+      "visualization-Oq0N": {
+        "id": "visualization-Oq0N",
+        "variant": "visualization",
+        "visId": "816c6191-5db6-4b27-96cc-2e4f6ed05aaf",
+        "queryId": "5e5d6d52-306e-4e80-98d8-8cdf146b06ca"
+      },
+      "visualization-Q9oH": {
+        "id": "visualization-Q9oH",
+        "variant": "visualization",
+        "visId": "6b313e5b-6325-441b-859c-13f3501ec7d5",
+        "queryId": "5e5d6d52-306e-4e80-98d8-8cdf146b06ca"
+      },
+      "visualization-Su_s": {
+        "id": "visualization-Su_s",
+        "title": "TVL by Token",
+        "variant": "visualization",
+        "visId": "3b077ff4-1517-49d0-acb7-bbccc9ca6de0",
+        "queryId": "7f021203-3a65-4385-893c-db497f39626a"
+      },
+      "visualization-UKUl": {
+        "id": "visualization-UKUl",
+        "variant": "visualization",
+        "visId": "bfa47adf-d311-4d21-bc29-97e1934f3cdb",
+        "queryId": "4ba04785-fef5-4c5c-8093-ec0533664679"
+      },
+      "visualization-VMeV": {
+        "id": "visualization-VMeV",
+        "title": "Total Value Locked",
+        "variant": "visualization",
+        "visId": "3577144d-64b4-4aa2-9a33-a819a24a0c2a",
+        "queryId": "bb4f5323-4c99-4406-8d9f-8075d0ec128d"
+      },
+      "visualization-Wo-g": {
+        "id": "visualization-Wo-g",
+        "title": "Intent Users, by day",
+        "variant": "visualization",
+        "visId": "3c42ce9a-aa54-49a8-8f86-3c23eca917aa",
+        "queryId": "fbd560f8-8163-4bd1-bda2-40739f6ae453"
+      },
+      "visualization-d-KR": {
+        "id": "visualization-d-KR",
+        "variant": "visualization",
+        "visId": "ca8b25cd-a0cc-40a7-8048-0f7203dafb21",
+        "queryId": "b0c8ca65-69bc-4aa4-8f84-6a6be995fd85"
+      },
+      "visualization-mU1F": {
+        "id": "visualization-mU1F",
+        "variant": "visualization",
+        "visId": "047180f0-2ea1-4804-95e8-33dc0262e645",
+        "queryId": "88ce1975-e4d9-4dc6-bc5d-cb2582720341"
+      },
+      "visualization-qUOi": {
+        "id": "visualization-qUOi",
+        "variant": "visualization",
+        "visId": "75391d4e-62a6-4491-b707-9c1e45780a07",
+        "queryId": "f20a4b18-34e3-482b-84f8-ccb24c68bed5"
+      },
+      "visualization-qVmu": {
+        "id": "visualization-qVmu",
+        "title": "TVL Segmentation",
+        "variant": "visualization",
+        "visId": "2a83289b-1b91-4c5c-adcf-23c78d9eeee0",
+        "queryId": "2a36bf79-1b03-45eb-8acb-04eac6fdd4b0"
+      },
+      "visualization-uvX_": {
+        "id": "visualization-uvX_",
+        "variant": "visualization",
+        "visId": "605bb842-e63e-4046-a0de-a7221c057743",
+        "queryId": "1e72a0c0-cb6c-4cad-88a6-6b95fc523789"
+      }
+    },
+    "styles": {
+      "root": {
+        "id": "root",
+        "variant": "root",
+        "background": {
+          "type": "solid",
+          "appColor": "bg-background"
+        },
+        "shadow": "sm",
+        "dashboardBackground": {
+          "type": "solid",
+          "appColor": "bg-muted"
+        }
+      },
+      "text-H-d1": {
+        "id": "text-H-d1",
+        "variant": "text"
+      },
+      "text-YxFH": {
+        "id": "text-YxFH",
+        "variant": "text"
+      },
+      "root-header": {
+        "id": "root-header",
+        "variant": "header",
+        "vertAlignKey": "start",
+        "background": {
+          "type": "solid",
+          "appColor": "bg-background"
+        }
+      },
+      "tab-layout-90C4": {
+        "id": "tab-layout-90C4",
+        "variant": "tab-layout",
+        "border": {
+          "width": 0
+        }
+      },
+      "tab-layout-JmI4": {
+        "id": "tab-layout-JmI4",
+        "variant": "tab-layout",
+        "border": {
+          "width": 0
+        }
+      },
+      "tab-layout-T1li": {
+        "id": "tab-layout-T1li",
+        "variant": "tab-layout",
+        "border": {
+          "width": 0
+        }
+      },
+      "tab-layout-nBaf": {
+        "id": "tab-layout-nBaf",
+        "variant": "tab-layout",
+        "border": {
+          "width": 0
+        }
+      },
+      "tab-layout-wiYE": {
+        "id": "tab-layout-wiYE",
+        "variant": "tab-layout"
+      },
+      "tab-layout-xouK": {
+        "id": "tab-layout-xouK",
+        "variant": "tab-layout"
+      },
+      "tabs-panel-QBJH": {
+        "id": "tabs-panel-QBJH",
+        "variant": "tabs-panel"
+      },
+      "tabs-panel-wiTK": {
+        "id": "tabs-panel-wiTK",
+        "variant": "tabs-panel"
+      },
+      "visualization-0BvK": {
+        "id": "visualization-0BvK",
+        "variant": "visualization"
+      },
+      "visualization-7GOH": {
+        "id": "visualization-7GOH",
+        "variant": "visualization"
+      },
+      "visualization-9gNU": {
+        "id": "visualization-9gNU",
+        "variant": "visualization"
+      },
+      "visualization-9oaj": {
+        "id": "visualization-9oaj",
+        "variant": "visualization"
+      },
+      "visualization-I6Hi": {
+        "id": "visualization-I6Hi",
+        "variant": "visualization"
+      },
+      "visualization-JfSo": {
+        "id": "visualization-JfSo",
+        "variant": "visualization"
+      },
+      "visualization-KY65": {
+        "id": "visualization-KY65",
+        "variant": "visualization"
+      },
+      "visualization-Oq0N": {
+        "id": "visualization-Oq0N",
+        "variant": "visualization"
+      },
+      "visualization-Q9oH": {
+        "id": "visualization-Q9oH",
+        "variant": "visualization"
+      },
+      "visualization-Su_s": {
+        "id": "visualization-Su_s",
+        "variant": "visualization"
+      },
+      "visualization-UKUl": {
+        "id": "visualization-UKUl",
+        "variant": "visualization"
+      },
+      "visualization-VMeV": {
+        "id": "visualization-VMeV",
+        "variant": "visualization"
+      },
+      "visualization-Wo-g": {
+        "id": "visualization-Wo-g",
+        "variant": "visualization"
+      },
+      "visualization-d-KR": {
+        "id": "visualization-d-KR",
+        "variant": "visualization"
+      },
+      "visualization-mU1F": {
+        "id": "visualization-mU1F",
+        "variant": "visualization"
+      },
+      "visualization-qUOi": {
+        "id": "visualization-qUOi",
+        "variant": "visualization"
+      },
+      "visualization-qVmu": {
+        "id": "visualization-qVmu",
+        "variant": "visualization"
+      },
+      "visualization-uvX_": {
+        "id": "visualization-uvX_",
+        "variant": "visualization"
+      }
+    },
+    "dataSources": {}
+  },
+  "description": "Track NEAR Intents activity across multiple blockchains, visualizing transaction volumes and cross-chain interactions.",
+  "slugId": "XO29Lh",
+  "publishedAt": "2025-05-21T16:40:21.000Z",
+  "createdById": "c2b1b171-ea4f-4a47-ab74-dd1f22acb6e6",
+  "updatedById": "c2b1b171-ea4f-4a47-ab74-dd1f22acb6e6",
+  "createdAt": "2024-11-26T21:59:18.000Z",
+  "updatedAt": "2025-07-08T03:49:08.000Z",
+  "lastRefreshedAt": null,
+  "lastOpenedAt": "2025-07-08T03:49:03.000Z",
+  "forkedFromId": null,
+  "queries": [
+    {
+      "id": "1e72a0c0-cb6c-4cad-88a6-6b95fc523789",
+      "name": "Daily Intents I",
+      "slug": "early-purple-XevWxk",
+      "slugId": "lhI9nY6FrAzF",
+      "latestSlug": "daily-intents-i",
+      "statement": "with dip4_logs as (\n  select\n    block_timestamp,\n    tx_hash,\n    receipt_id,\n    predecessor_id,\n    signer_id,\n    receiver_id,\n    coalesce(\n      try_parse_json(clean_log) :data[0] :account_id :: string,\n      try_parse_json(clean_log) :data :account_id :: string\n    ) as participant_address,\n    coalesce(\n      try_parse_json(clean_log) :data[0] :diff :: VARIANT,\n      try_parse_json(clean_log) :data :diff :: VARIANT\n  ) as token_diff\n  from\n    near.core.fact_logs\n  where\n    receiver_id = 'intents.near'\n    and block_timestamp >= '2024-11-01'\n    and try_parse_json(clean_log) :standard :: STRING = 'dip4'\n    and try_parse_json(clean_log) :event :: STRING = 'token_diff'\n),\ncount_agg as (\nselect\n  date_trunc('day', block_timestamp) :: date as date,\n  count(distinct tx_hash) as tx_ct,\n  count(distinct receipt_id) as receipt_ct,\n  count(distinct participant_address) as participants_ct\nfrom\n  dip4_logs\ngroup by\n  1\n)\nselect\n  date,\n  tx_ct,\n  -- Cumulative Counts\n  sum(tx_ct) over (order by date) as tx_ct_cum,\n  receipt_ct,\n  sum(receipt_ct) over (order by date) as receipt_ct_cum,\n  participants_ct,\n  sum(participants_ct) over (order by date) as participants_ct_cum,\n  -- 7-Day Moving Averages\n  avg(tx_ct) over (\n    order by date\n    rows between 6 preceding and current row\n  ) as tx_ct_ma7,\n  avg(receipt_ct) over (\n    order by date\n    rows between 6 preceding and current row\n  ) as receipt_ct_ma7,\n  avg(participants_ct) over (\n    order by date\n    rows between 6 preceding and current row\n  ) as participants_ct_ma7\nfrom count_agg\norder by 1",
+      "ttlMinutes": 0,
+      "lastQueryRunId": null,
+      "lastSuccessfulQueryRunId": null,
+      "lastExecutedCompassId": "cmc9f8ccm5zze5qlhsm8ac9dv",
+      "lastSuccessfulCompassId": "cmc9f8ccm5zze5qlhsm8ac9dv",
+      "executionEngine": "compass",
+      "queryCollectionId": "31f14f01-64a7-4696-9099-292b6dbf514f",
+      "parentQueryId": null,
+      "forkedFromId": null,
+      "resultLastAccessedAt": "2025-06-24T12:07:16.811Z",
+      "lastSuccessfulExecutionAt": "2025-06-23T18:22:01.543Z",
+      "createdById": "7d1eba10-7543-4a0a-aadd-c59ea717d688",
+      "updatedById": "7d1eba10-7543-4a0a-aadd-c59ea717d688",
+      "createdAt": "2025-05-21T16:29:21.905Z",
+      "updatedAt": "2025-05-21T16:31:53.611Z",
+      "visualizations": [],
+      "parameters": [],
+      "meta": {},
+      "tables": [
+        "near.core.fact_logs"
+      ],
+      "functions": [],
+      "lastOpenedAt": "2025-06-07T15:23:40.570Z",
+      "lastSavedAt": "2025-05-21T16:31:53.611Z",
+      "profileId": "81a2d1aa-24d0-415d-9a9e-8fdffad04129",
+      "visibility": "public",
+      "domainType": "Query",
+      "hasJsonEndpointAccess": false
+    },
+    {
+      "id": "2a36bf79-1b03-45eb-8acb-04eac6fdd4b0",
+      "name": "\u2b50\ufe0f [parent Query] NEP245 - (TVL Segmentation) Token Mint Volume by Chain & Token",
+      "slug": "nep-245-net-chain-volume-over-time-skcC94",
+      "slugId": "dS5baiSupyZo",
+      "latestSlug": "parent-query-nep245---tvl-segmentation-token-mint-volume-by-chain-token",
+      "statement": "-- forked from NEP245 - Net Chain Volume, over time @ https://flipsidecrypto.xyz/studio/queries/b93dd1a6-4386-4c6c-80dc-be2ae64d4765\n-- Updated 20250404 to use the EZ table instead\n\nwith source_data AS (\n  SELECT\n    *\n  from\n    near.defi.ez_intents\n  where log_event in ('mt_mint', 'mt_burn')\n)\nselect\n  symbol,\n  blockchain,\n  sum(iff(log_event = 'mt_mint', zeroifnull(amount_usd), -zeroifnull(amount_usd))) as gross_amount_usd,\n  sum(iff(log_event = 'mt_mint', amount_adj, -amount_adj)) as gross_token_amount\nfrom\n  source_data\ngroup by\n  1,\n  2\nhaving\n  gross_amount_usd > 0\norder by\n  1,\n  2 \n\n",
+      "ttlMinutes": 1440,
+      "lastQueryRunId": null,
+      "lastSuccessfulQueryRunId": null,
+      "lastExecutedCompassId": "cmcspl0rq145xu21aqpr4i7pz",
+      "lastSuccessfulCompassId": "cmcspl0rq145xu21aqpr4i7pz",
+      "executionEngine": "compass",
+      "queryCollectionId": "31f14f01-64a7-4696-9099-292b6dbf514f",
+      "parentQueryId": "b93dd1a6-4386-4c6c-80dc-be2ae64d4765",
+      "forkedFromId": "b93dd1a6-4386-4c6c-80dc-be2ae64d4765",
+      "resultLastAccessedAt": "2025-07-08T04:55:03.607Z",
+      "lastSuccessfulExecutionAt": "2025-07-07T06:17:07.637Z",
+      "createdById": "c2b1b171-ea4f-4a47-ab74-dd1f22acb6e6",
+      "updatedById": "c2b1b171-ea4f-4a47-ab74-dd1f22acb6e6",
+      "createdAt": "2024-11-27T20:25:49.637Z",
+      "updatedAt": "2025-04-07T14:28:22.279Z",
+      "visualizations": [],
+      "parameters": [],
+      "meta": {},
+      "tables": [
+        "near.defi.ez_intents"
+      ],
+      "functions": [],
+      "lastOpenedAt": "2025-05-21T15:23:04.927Z",
+      "lastSavedAt": "2025-04-07T14:28:22.279Z",
+      "profileId": "81a2d1aa-24d0-415d-9a9e-8fdffad04129",
+      "visibility": "public",
+      "domainType": "Query",
+      "hasJsonEndpointAccess": false
+    },
+    {
+      "id": "4ba04785-fef5-4c5c-8093-ec0533664679",
+      "name": "NEP245 - Transfer Volume",
+      "slug": "nep-245-net-chain-mint-volume-over-time-bSa8UQ",
+      "slugId": "efhswu1Cvkm2",
+      "latestSlug": "nep245---transfer-volume",
+      "statement": "-- forked from NEP245 - Net Chain Mint Volume, over time @ https://flipsidecrypto.xyz/studio/queries/b93dd1a6-4386-4c6c-80dc-be2ae64d4765\nwith source_data AS (\n  SELECT\n    *\n  from\n    near.defi.ez_intents\n  where\n    log_event = 'mt_transfer'\n  \n  -- there are multiple transfers per receipt as the intent is solved\n  qualify(row_number() over (partition by receipt_id order by block_id desc, amount_usd is not null desc) = 1)\n)\nselect\n  date_trunc('day', block_timestamp) as _date,\n  blockchain,\n  sum(zeroifnull(amount_usd)) as gross_amount_usd\nfrom\n  source_data\ngroup by\n  1,\n  2\norder by\n  1,\n  2\n",
+      "ttlMinutes": 1440,
+      "lastQueryRunId": null,
+      "lastSuccessfulQueryRunId": null,
+      "lastExecutedCompassId": "cmcspwlus2d9rde0s7jkeudy7",
+      "lastSuccessfulCompassId": "cmcspwlus2d9rde0s7jkeudy7",
+      "executionEngine": "compass",
+      "queryCollectionId": "31f14f01-64a7-4696-9099-292b6dbf514f",
+      "parentQueryId": "b93dd1a6-4386-4c6c-80dc-be2ae64d4765",
+      "forkedFromId": "b93dd1a6-4386-4c6c-80dc-be2ae64d4765",
+      "resultLastAccessedAt": "2025-07-08T04:55:02.058Z",
+      "lastSuccessfulExecutionAt": "2025-07-07T06:26:08.110Z",
+      "createdById": "c2b1b171-ea4f-4a47-ab74-dd1f22acb6e6",
+      "updatedById": "c2b1b171-ea4f-4a47-ab74-dd1f22acb6e6",
+      "createdAt": "2024-12-06T22:53:10.831Z",
+      "updatedAt": "2025-04-07T14:21:16.887Z",
+      "visualizations": [],
+      "parameters": [],
+      "meta": {},
+      "tables": [
+        "near.defi.ez_intents"
+      ],
+      "functions": [],
+      "lastOpenedAt": "2025-05-21T15:21:24.122Z",
+      "lastSavedAt": "2025-04-07T14:21:16.887Z",
+      "profileId": "81a2d1aa-24d0-415d-9a9e-8fdffad04129",
+      "visibility": "public",
+      "domainType": "Query",
+      "hasJsonEndpointAccess": false
+    },
+    {
+      "id": "5e5d6d52-306e-4e80-98d8-8cdf146b06ca",
+      "name": "NEP245 - Count Metrics",
+      "slug": "temporary-lime-aNGwCP",
+      "slugId": "KrLuilDWfqgT",
+      "latestSlug": "nep245---count-metrics",
+      "statement": "with source_data as (\n  select\n    *\n  from\n  near.defi.ez_intents\n),\nmetrics as (\n  select\n    count(distinct tx_hash) as tx_ct,\n    count(distinct blockchain) as blockchain_ct,\n    count(distinct token_id) as token_ct,\n    count(distinct receipt_id) as receipt_ct\n  from\n    source_data\n),\nuser_ct as (\n  select\n    count(distinct account_id) as account_ct\n  from\n    (\n      select\n        distinct owner_id as account_id\n      from\n        source_data\n      union\n      select\n        distinct old_owner_id as account_id\n      from\n        source_data\n      union\n      select\n        distinct new_owner_id as account_id\n      from\n        source_data\n    )\n)\nselect\n  tx_ct,\n  receipt_ct,\n  blockchain_ct,\n  token_ct,\n  account_ct\nfrom\n  metrics\n  left join user_ct on 1 = 1",
+      "ttlMinutes": 1440,
+      "lastQueryRunId": null,
+      "lastSuccessfulQueryRunId": null,
+      "lastExecutedCompassId": "cmcthhe7k0o2av1d1gjgio06c",
+      "lastSuccessfulCompassId": "cmcthhe7k0o2av1d1gjgio06c",
+      "executionEngine": "compass",
+      "queryCollectionId": "31f14f01-64a7-4696-9099-292b6dbf514f",
+      "parentQueryId": null,
+      "forkedFromId": null,
+      "resultLastAccessedAt": "2025-07-08T04:54:58.774Z",
+      "lastSuccessfulExecutionAt": "2025-07-07T19:19:33.289Z",
+      "createdById": "c2b1b171-ea4f-4a47-ab74-dd1f22acb6e6",
+      "updatedById": "c2b1b171-ea4f-4a47-ab74-dd1f22acb6e6",
+      "createdAt": "2024-12-05T23:09:38.059Z",
+      "updatedAt": "2025-04-04T21:40:22.638Z",
+      "visualizations": [],
+      "parameters": [],
+      "meta": {},
+      "tables": [
+        "near.defi.ez_intents"
+      ],
+      "functions": [],
+      "lastOpenedAt": "2025-07-07T22:52:47.057Z",
+      "lastSavedAt": "2025-04-04T21:40:22.638Z",
+      "profileId": "81a2d1aa-24d0-415d-9a9e-8fdffad04129",
+      "visibility": "public",
+      "domainType": "Query",
+      "hasJsonEndpointAccess": false
+    },
+    {
+      "id": "79693e2e-3e09-4c84-87c9-e3ad0f0e5e26",
+      "name": "Weekly Intents",
+      "slug": "influential-salmon-VH1HfV",
+      "slugId": "zuN1v2CLc9tu",
+      "latestSlug": "weekly-intents",
+      "statement": "with dip4_logs as (\n  select\n    block_timestamp,\n    tx_hash,\n    receipt_id,\n    predecessor_id,\n    signer_id,\n    receiver_id,\n    coalesce(\n      try_parse_json(clean_log) :data[0] :account_id :: string,\n      try_parse_json(clean_log) :data :account_id :: string\n    ) as participant_address,\n    coalesce(\n      try_parse_json(clean_log) :data[0] :diff :: VARIANT,\n      try_parse_json(clean_log) :data :diff :: VARIANT\n  ) as token_diff\n  from\n    near.core.fact_logs\n  where\n    receiver_id = 'intents.near'\n    and block_timestamp >= '2024-11-01'\n    and try_parse_json(clean_log) :standard :: STRING = 'dip4'\n    and try_parse_json(clean_log) :event :: STRING = 'token_diff'\n),\ncount_agg as (\nselect\n  date_trunc('week', block_timestamp) :: date as date,\n  count(distinct tx_hash) as tx_ct,\n  count(distinct receipt_id) as receipt_ct,\n  count(distinct participant_address) as participants_ct\nfrom\n  dip4_logs\ngroup by\n  1\n)\nselect\n  date,\n  tx_ct,\n  -- Cumulative Counts\n  sum(tx_ct) over (order by date) as tx_ct_cum,\n  receipt_ct,\n  sum(receipt_ct) over (order by date) as receipt_ct_cum,\n  participants_ct,\n  sum(participants_ct) over (order by date) as participants_ct_cum,\n  -- 7-Day Moving Averages\n  avg(tx_ct) over (\n    order by date\n    rows between 6 preceding and current row\n  ) as tx_ct_ma7,\n  avg(receipt_ct) over (\n    order by date\n    rows between 6 preceding and current row\n  ) as receipt_ct_ma7,\n  avg(participants_ct) over (\n    order by date\n    rows between 6 preceding and current row\n  ) as participants_ct_ma7\nfrom count_agg\norder by 1",
+      "ttlMinutes": 0,
+      "lastQueryRunId": null,
+      "lastSuccessfulQueryRunId": null,
+      "lastExecutedCompassId": "cmc9f8cdk2un5ou1wq5i41dgd",
+      "lastSuccessfulCompassId": "cmc9f8cdk2un5ou1wq5i41dgd",
+      "executionEngine": "compass",
+      "queryCollectionId": "31f14f01-64a7-4696-9099-292b6dbf514f",
+      "parentQueryId": null,
+      "forkedFromId": null,
+      "resultLastAccessedAt": "2025-07-08T04:55:00.848Z",
+      "lastSuccessfulExecutionAt": "2025-06-23T18:22:08.838Z",
+      "createdById": "7d1eba10-7543-4a0a-aadd-c59ea717d688",
+      "updatedById": "7d1eba10-7543-4a0a-aadd-c59ea717d688",
+      "createdAt": "2025-05-21T16:29:38.764Z",
+      "updatedAt": "2025-05-21T16:31:52.603Z",
+      "visualizations": [],
+      "parameters": [],
+      "meta": {},
+      "tables": [
+        "near.core.fact_logs"
+      ],
+      "functions": [],
+      "lastOpenedAt": "2025-05-21T16:33:45.776Z",
+      "lastSavedAt": "2025-05-21T16:31:52.603Z",
+      "profileId": "81a2d1aa-24d0-415d-9a9e-8fdffad04129",
+      "visibility": "public",
+      "domainType": "Query",
+      "hasJsonEndpointAccess": false
+    },
+    {
+      "id": "7f021203-3a65-4385-893c-db497f39626a",
+      "name": "NEP245 -  (TVL by token) Net Mints by token",
+      "slug": "misleading-moccasin-uF_4Wp",
+      "slugId": "r6U-8tFFCLFA",
+      "latestSlug": "nep245---tvl-by-token-net-mints-by-token",
+      "statement": "with source_data AS (\n  select\n    block_timestamp,\n    log_event,\n    memo,\n    amount_raw,\n    amount_adj,\n    amount_usd,\n    blockchain,\n    contract_address AS token_address,\n    symbol,\n    decimals,\n    iff(\n      log_event = 'mt_mint',\n      amount_raw,\n      - amount_raw\n    ) as net_amount_unadj,\n    iff(\n      log_event = 'mt_mint',\n      amount_usd,\n      - amount_usd\n    ) as net_amount_usd\n  from\n    near.defi.ez_intents\n  where log_event in ('mt_mint', 'mt_burn')\n),\nnet_bal AS (\n  SELECT\n    token_address,\n    symbol,\n    sum(net_amount_unadj) as net_tokens_minted_unadj,\n    sum(net_amount_usd) as net_tokens_minted_usd,\n    max(block_timestamp) as last_event\n  from\n    source_data\n  group by\n    1,2\n)\nselect\n  A.token_address AS token,\n  symbol,\n  net_tokens_minted_unadj,\n  last_event,\n  net_tokens_minted_usd\nfrom\n  net_bal A\norder by net_tokens_minted_usd desc",
+      "ttlMinutes": 1440,
+      "lastQueryRunId": null,
+      "lastSuccessfulQueryRunId": null,
+      "lastExecutedCompassId": "cmct3aud1114cmqsb0xgafn8m",
+      "lastSuccessfulCompassId": "cmct3aud1114cmqsb0xgafn8m",
+      "executionEngine": "compass",
+      "queryCollectionId": "31f14f01-64a7-4696-9099-292b6dbf514f",
+      "parentQueryId": null,
+      "forkedFromId": null,
+      "resultLastAccessedAt": "2025-07-08T04:55:01.651Z",
+      "lastSuccessfulExecutionAt": "2025-07-07T12:41:07.381Z",
+      "createdById": "c2b1b171-ea4f-4a47-ab74-dd1f22acb6e6",
+      "updatedById": "c2b1b171-ea4f-4a47-ab74-dd1f22acb6e6",
+      "createdAt": "2024-11-26T19:30:08.938Z",
+      "updatedAt": "2025-04-04T21:41:45.679Z",
+      "visualizations": [],
+      "parameters": [],
+      "meta": {},
+      "tables": [
+        "near.defi.ez_intents"
+      ],
+      "functions": [],
+      "lastOpenedAt": "2025-07-07T23:17:19.407Z",
+      "lastSavedAt": "2025-04-04T21:41:45.679Z",
+      "profileId": "81a2d1aa-24d0-415d-9a9e-8fdffad04129",
+      "visibility": "public",
+      "domainType": "Query",
+      "hasJsonEndpointAccess": false
+    },
+    {
+      "id": "88ce1975-e4d9-4dc6-bc5d-cb2582720341",
+      "name": "Monthly Volume",
+      "slug": "associated-yellow-RhBwU2",
+      "slugId": "IpXSNiS_DzDL",
+      "latestSlug": "monthly-volume",
+      "statement": "-- forked from NEP245 - Net Chain Mint Volume, over time @ https://flipsidecrypto.xyz/studio/queries/b93dd1a6-4386-4c6c-80dc-be2ae64d4765\nwith source_data AS (\n  SELECT\n    *\n  from\n    near.defi.ez_intents\n  where\n    log_event = 'mt_transfer'\n  \n  -- there are multiple transfers per receipt as the intent is solved\n  qualify(row_number() over (partition by receipt_id order by block_id desc, amount_usd is not null desc) = 1)\n)\nselect\n  date_trunc('month', block_timestamp) as _date,\n  sum(zeroifnull(amount_usd)) as gross_amount_usd\nfrom\n  source_data\ngroup by\n  1\norder by\n  1\n",
+      "ttlMinutes": 0,
+      "lastQueryRunId": null,
+      "lastSuccessfulQueryRunId": null,
+      "lastExecutedCompassId": "cmc9f8cdh6q4ce8ozo7gtqob2",
+      "lastSuccessfulCompassId": "cmc9f8cdh6q4ce8ozo7gtqob2",
+      "executionEngine": "compass",
+      "queryCollectionId": "31f14f01-64a7-4696-9099-292b6dbf514f",
+      "parentQueryId": null,
+      "forkedFromId": null,
+      "resultLastAccessedAt": "2025-07-08T04:55:03.080Z",
+      "lastSuccessfulExecutionAt": "2025-06-23T18:19:40.612Z",
+      "createdById": "7d1eba10-7543-4a0a-aadd-c59ea717d688",
+      "updatedById": "7d1eba10-7543-4a0a-aadd-c59ea717d688",
+      "createdAt": "2025-05-21T15:23:12.402Z",
+      "updatedAt": "2025-05-21T15:23:29.870Z",
+      "visualizations": [],
+      "parameters": [],
+      "meta": {},
+      "tables": [
+        "near.defi.ez_intents"
+      ],
+      "functions": [],
+      "lastOpenedAt": "2025-05-21T16:33:36.950Z",
+      "lastSavedAt": "2025-05-21T15:23:29.870Z",
+      "profileId": "81a2d1aa-24d0-415d-9a9e-8fdffad04129",
+      "visibility": "public",
+      "domainType": "Query",
+      "hasJsonEndpointAccess": false
+    },
+    {
+      "id": "a311b965-81a4-4e0f-8e22-bbc9035d1991",
+      "name": "NEP245 - (TVL) Total Net Mint Volume (non-Near)",
+      "slug": "nep-245-gross-net-mint-volume-8g7eyM",
+      "slugId": "hQspH-wV9Ooc",
+      "latestSlug": "nep245---tvl-total-net-mint-volume-non-near",
+      "statement": "-- forked from NEP245 - Gross Net Mint Volume @ https://flipsidecrypto.xyz/studio/queries/bb4f5323-4c99-4406-8d9f-8075d0ec128d\n\nselect\n  sum(zeroifnull(gross_amount_usd)) as total_net_minted_volume\nfrom\n  $query('2a36bf79-1b03-45eb-8acb-04eac6fdd4b0') \nwhere lower(blockchain) != 'near'\n",
+      "ttlMinutes": 1440,
+      "lastQueryRunId": null,
+      "lastSuccessfulQueryRunId": null,
+      "lastExecutedCompassId": "cmct1merl0e3j3emy2hnja9c7",
+      "lastSuccessfulCompassId": "cmct1merl0e3j3emy2hnja9c7",
+      "executionEngine": "compass",
+      "queryCollectionId": "31f14f01-64a7-4696-9099-292b6dbf514f",
+      "parentQueryId": "bb4f5323-4c99-4406-8d9f-8075d0ec128d",
+      "forkedFromId": "bb4f5323-4c99-4406-8d9f-8075d0ec128d",
+      "resultLastAccessedAt": "2025-07-08T04:55:00.159Z",
+      "lastSuccessfulExecutionAt": "2025-07-07T11:54:07.862Z",
+      "createdById": "c2b1b171-ea4f-4a47-ab74-dd1f22acb6e6",
+      "updatedById": "c2b1b171-ea4f-4a47-ab74-dd1f22acb6e6",
+      "createdAt": "2024-12-06T17:24:14.711Z",
+      "updatedAt": "2025-04-07T14:24:00.085Z",
+      "visualizations": [],
+      "parameters": [],
+      "meta": {},
+      "tables": [
+        "near.defi.ez_intents"
+      ],
+      "functions": [],
+      "lastOpenedAt": "2025-06-07T15:23:37.330Z",
+      "lastSavedAt": "2025-04-07T14:24:00.085Z",
+      "profileId": "81a2d1aa-24d0-415d-9a9e-8fdffad04129",
+      "visibility": "public",
+      "domainType": "Query",
+      "hasJsonEndpointAccess": false
+    },
+    {
+      "id": "b0c8ca65-69bc-4aa4-8f84-6a6be995fd85",
+      "name": "NEP245 - Transfer Volume by REFERRER",
+      "slug": "nep-245-transfer-volume-ew-MQc",
+      "slugId": "_ppiWGWDQg5N",
+      "latestSlug": "nep245---transfer-volume-by-referrer",
+      "statement": "-- forked from NEP245 - Transfer Volume @ https://flipsidecrypto.xyz/studio/queries/4ba04785-fef5-4c5c-8093-ec0533664679\n\n-- forked from NEP245 - Net Chain Mint Volume, over time @ https://flipsidecrypto.xyz/studio/queries/b93dd1a6-4386-4c6c-80dc-be2ae64d4765\nwith source_data AS (\n  SELECT\n    *\n  from\n    near.defi.ez_intents\n  where\n    log_event = 'mt_transfer'\n  and\n    referral is not null\n  \n  -- there are multiple transfers per receipt as the intent is solved\n  qualify(row_number() over (partition by receipt_id order by block_id desc, amount_usd is not null desc) = 1)\n)\nselect\n  date_trunc('day', block_timestamp) as _date,\n  referral,\n  sum(zeroifnull(amount_usd)) as gross_amount_usd\nfrom\n  source_data\ngroup by\n  1,\n  2\norder by\n  1,\n  3 desc\n \n\n",
+      "ttlMinutes": 1440,
+      "lastQueryRunId": null,
+      "lastSuccessfulQueryRunId": null,
+      "lastExecutedCompassId": "cmctyldqb7nz26mxqz6ghl1k2",
+      "lastSuccessfulCompassId": "cmctyldqb7nz26mxqz6ghl1k2",
+      "executionEngine": "compass",
+      "queryCollectionId": "31f14f01-64a7-4696-9099-292b6dbf514f",
+      "parentQueryId": "4ba04785-fef5-4c5c-8093-ec0533664679",
+      "forkedFromId": "4ba04785-fef5-4c5c-8093-ec0533664679",
+      "resultLastAccessedAt": "2025-07-08T04:54:59.774Z",
+      "lastSuccessfulExecutionAt": "2025-07-08T03:17:07.202Z",
+      "createdById": "c2b1b171-ea4f-4a47-ab74-dd1f22acb6e6",
+      "updatedById": "c2b1b171-ea4f-4a47-ab74-dd1f22acb6e6",
+      "createdAt": "2025-04-04T21:47:19.717Z",
+      "updatedAt": "2025-04-07T14:22:10.303Z",
+      "visualizations": [],
+      "parameters": [],
+      "meta": {},
+      "tables": [
+        "near.defi.ez_intents"
+      ],
+      "functions": [],
+      "lastOpenedAt": "2025-06-07T15:23:37.923Z",
+      "lastSavedAt": "2025-04-07T14:22:10.303Z",
+      "profileId": "81a2d1aa-24d0-415d-9a9e-8fdffad04129",
+      "visibility": "public",
+      "domainType": "Query",
+      "hasJsonEndpointAccess": false
+    },
+    {
+      "id": "b6031867-085c-41c9-9dc8-2bf38e55dfcf",
+      "name": "Monthly Intents",
+      "slug": "ideological-peach-pL15c1",
+      "slugId": "ZiXVGDswqkyJ",
+      "latestSlug": "monthly-intents",
+      "statement": "with dip4_logs as (\n  select\n    block_timestamp,\n    tx_hash,\n    receipt_id,\n    predecessor_id,\n    signer_id,\n    receiver_id,\n    coalesce(\n      try_parse_json(clean_log) :data[0] :account_id :: string,\n      try_parse_json(clean_log) :data :account_id :: string\n    ) as participant_address,\n    coalesce(\n      try_parse_json(clean_log) :data[0] :diff :: VARIANT,\n      try_parse_json(clean_log) :data :diff :: VARIANT\n  ) as token_diff\n  from\n    near.core.fact_logs\n  where\n    receiver_id = 'intents.near'\n    and block_timestamp >= '2024-11-01'\n    and try_parse_json(clean_log) :standard :: STRING = 'dip4'\n    and try_parse_json(clean_log) :event :: STRING = 'token_diff'\n),\ncount_agg as (\nselect\n  date_trunc('month', block_timestamp) :: date as date,\n  count(distinct tx_hash) as tx_ct,\n  count(distinct receipt_id) as receipt_ct,\n  count(distinct participant_address) as participants_ct\nfrom\n  dip4_logs\ngroup by\n  1\n)\nselect\n  date,\n  tx_ct,\n  -- Cumulative Counts\n  sum(tx_ct) over (order by date) as tx_ct_cum,\n  receipt_ct,\n  sum(receipt_ct) over (order by date) as receipt_ct_cum,\n  participants_ct,\n  sum(participants_ct) over (order by date) as participants_ct_cum,\n  -- 7-Day Moving Averages\n  avg(tx_ct) over (\n    order by date\n    rows between 6 preceding and current row\n  ) as tx_ct_ma7,\n  avg(receipt_ct) over (\n    order by date\n    rows between 6 preceding and current row\n  ) as receipt_ct_ma7,\n  avg(participants_ct) over (\n    order by date\n    rows between 6 preceding and current row\n  ) as participants_ct_ma7\nfrom count_agg\norder by 1",
+      "ttlMinutes": 0,
+      "lastQueryRunId": null,
+      "lastSuccessfulQueryRunId": null,
+      "lastExecutedCompassId": "cmc9f8cee03bd99egw7wmm9sh",
+      "lastSuccessfulCompassId": "cmc9f8cee03bd99egw7wmm9sh",
+      "executionEngine": "compass",
+      "queryCollectionId": "31f14f01-64a7-4696-9099-292b6dbf514f",
+      "parentQueryId": null,
+      "forkedFromId": null,
+      "resultLastAccessedAt": "2025-07-08T04:55:01.143Z",
+      "lastSuccessfulExecutionAt": "2025-06-23T18:22:01.581Z",
+      "createdById": "7d1eba10-7543-4a0a-aadd-c59ea717d688",
+      "updatedById": "7d1eba10-7543-4a0a-aadd-c59ea717d688",
+      "createdAt": "2025-05-21T16:29:51.862Z",
+      "updatedAt": "2025-05-21T16:32:12.610Z",
+      "visualizations": [],
+      "parameters": [],
+      "meta": {},
+      "tables": [
+        "near.core.fact_logs"
+      ],
+      "functions": [],
+      "lastOpenedAt": "2025-07-08T03:49:01.089Z",
+      "lastSavedAt": "2025-05-21T16:32:12.610Z",
+      "profileId": "81a2d1aa-24d0-415d-9a9e-8fdffad04129",
+      "visibility": "public",
+      "domainType": "Query",
+      "hasJsonEndpointAccess": false
+    },
+    {
+      "id": "bb4f5323-4c99-4406-8d9f-8075d0ec128d",
+      "name": "NEP245 - (TVL) Gross Net Mint Volume",
+      "slug": "nep-245-token-mint-volume-by-chain-token-i76QAh",
+      "slugId": "yfXSey0vhaoc",
+      "latestSlug": "nep245---tvl-gross-net-mint-volume",
+      "statement": "select\n  sum(zeroifnull(gross_amount_usd)) as total_net_minted_volume\nfrom\n  $query('2a36bf79-1b03-45eb-8acb-04eac6fdd4b0')",
+      "ttlMinutes": 1440,
+      "lastQueryRunId": null,
+      "lastSuccessfulQueryRunId": null,
+      "lastExecutedCompassId": "cmctdhcs13w7lrnjuvbzfzp4b",
+      "lastSuccessfulCompassId": "cmctdhcs13w7lrnjuvbzfzp4b",
+      "executionEngine": "compass",
+      "queryCollectionId": "31f14f01-64a7-4696-9099-292b6dbf514f",
+      "parentQueryId": "2a36bf79-1b03-45eb-8acb-04eac6fdd4b0",
+      "forkedFromId": "2a36bf79-1b03-45eb-8acb-04eac6fdd4b0",
+      "resultLastAccessedAt": "2025-07-08T04:55:02.367Z",
+      "lastSuccessfulExecutionAt": "2025-07-07T17:26:22.657Z",
+      "createdById": "c2b1b171-ea4f-4a47-ab74-dd1f22acb6e6",
+      "updatedById": "c2b1b171-ea4f-4a47-ab74-dd1f22acb6e6",
+      "createdAt": "2024-12-05T23:24:13.043Z",
+      "updatedAt": "2025-04-07T14:23:26.875Z",
+      "visualizations": [],
+      "parameters": [],
+      "meta": {},
+      "tables": [
+        "near.defi.ez_intents"
+      ],
+      "functions": [],
+      "lastOpenedAt": "2025-06-07T15:23:37.667Z",
+      "lastSavedAt": "2025-04-07T14:23:26.875Z",
+      "profileId": "81a2d1aa-24d0-415d-9a9e-8fdffad04129",
+      "visibility": "public",
+      "domainType": "Query",
+      "hasJsonEndpointAccess": false
+    },
+    {
+      "id": "cb5b627e-867d-4a46-a7e6-af713c434f01",
+      "name": "Intent Users - top wallets by USD",
+      "slug": "striped-maroon-2QyAJe",
+      "slugId": "loJNCwc7y0xt",
+      "latestSlug": "intent-users---top-wallets-by-usd",
+      "statement": "with \nnep245_source_data AS (\nselect * from\n  near.defi.ez_intents\nwhere receipt_succeeded\n),\ndip4_source_data AS (\nselect \n  receipt_id,\n  account_id\nfrom $query('18c98585-fac8-402a-849d-c61e5748cbf8')\nwhere receipt_succeeded\n),\njoin_signer as (\nselect\n  dip4.account_id as intent_signer,\n  nep245.*\nfrom nep245_source_data nep245\nleft join dip4_source_data dip4 on dip4.receipt_id = nep245.receipt_id\nwhere log_event = 'mt_transfer'\n  and dip4.account_id is not null\nqualify(row_number() over (partition by nep245.receipt_id order by log_index desc, amount_usd is not null desc) = 1)\n)\nselect\n  intent_signer,\n  sum(zeroifnull(amount_usd)) as gross_transfer_volume\nfrom join_signer\ngroup by 1\norder by 2 DESC\n",
+      "ttlMinutes": 1440,
+      "lastQueryRunId": null,
+      "lastSuccessfulQueryRunId": null,
+      "lastExecutedCompassId": "cmctd9mvs7an16mxq7b8fwhhn",
+      "lastSuccessfulCompassId": "cmctd9mvs7an16mxq7b8fwhhn",
+      "executionEngine": "compass",
+      "queryCollectionId": "31f14f01-64a7-4696-9099-292b6dbf514f",
+      "parentQueryId": null,
+      "forkedFromId": null,
+      "resultLastAccessedAt": "2025-07-08T04:54:59.246Z",
+      "lastSuccessfulExecutionAt": "2025-07-07T17:20:07.226Z",
+      "createdById": "c2b1b171-ea4f-4a47-ab74-dd1f22acb6e6",
+      "updatedById": "c2b1b171-ea4f-4a47-ab74-dd1f22acb6e6",
+      "createdAt": "2024-12-09T19:16:03.642Z",
+      "updatedAt": "2025-04-07T14:22:33.118Z",
+      "visualizations": [],
+      "parameters": [],
+      "meta": {},
+      "tables": [
+        "near.defi.ez_intents",
+        "near.core.fact_logs"
+      ],
+      "functions": [],
+      "lastOpenedAt": "2025-04-07T14:25:03.471Z",
+      "lastSavedAt": "2025-04-07T14:22:33.118Z",
+      "profileId": "81a2d1aa-24d0-415d-9a9e-8fdffad04129",
+      "visibility": "public",
+      "domainType": "Query",
+      "hasJsonEndpointAccess": false
+    },
+    {
+      "id": "e5ef79d8-255b-4201-a541-ef9e000cdad6",
+      "name": "Weekly Volume I",
+      "slug": "disastrous-coffee-Xx8MpC",
+      "slugId": "mK0MvuA-1GNW",
+      "latestSlug": "weekly-volume-i",
+      "statement": "-- forked from NEP245 - Net Chain Mint Volume, over time @ https://flipsidecrypto.xyz/studio/queries/b93dd1a6-4386-4c6c-80dc-be2ae64d4765\nwith source_data AS (\n  SELECT\n    *\n  from\n    near.defi.ez_intents\n  where\n    log_event = 'mt_transfer'\n  \n  -- there are multiple transfers per receipt as the intent is solved\n  qualify(row_number() over (partition by receipt_id order by block_id desc, amount_usd is not null desc) = 1)\n)\nselect\n  date_trunc('week', block_timestamp) as _date,\n  sum(zeroifnull(amount_usd)) as gross_amount_usd\nfrom\n  source_data\ngroup by\n  1\norder by\n  1\n",
+      "ttlMinutes": 0,
+      "lastQueryRunId": null,
+      "lastSuccessfulQueryRunId": null,
+      "lastExecutedCompassId": "cmc9f8cf6iz49n3f6ajr5jm21",
+      "lastSuccessfulCompassId": "cmc9f8cf6iz49n3f6ajr5jm21",
+      "executionEngine": "compass",
+      "queryCollectionId": "31f14f01-64a7-4696-9099-292b6dbf514f",
+      "parentQueryId": null,
+      "forkedFromId": null,
+      "resultLastAccessedAt": "2025-07-08T04:55:00.516Z",
+      "lastSuccessfulExecutionAt": "2025-06-23T18:19:40.578Z",
+      "createdById": "7d1eba10-7543-4a0a-aadd-c59ea717d688",
+      "updatedById": "7d1eba10-7543-4a0a-aadd-c59ea717d688",
+      "createdAt": "2025-05-21T15:22:25.770Z",
+      "updatedAt": "2025-05-21T15:22:54.038Z",
+      "visualizations": [],
+      "parameters": [],
+      "meta": {},
+      "tables": [
+        "near.defi.ez_intents"
+      ],
+      "functions": [],
+      "lastOpenedAt": "2025-05-21T16:33:32.916Z",
+      "lastSavedAt": "2025-05-21T15:22:54.038Z",
+      "profileId": "81a2d1aa-24d0-415d-9a9e-8fdffad04129",
+      "visibility": "public",
+      "domainType": "Query",
+      "hasJsonEndpointAccess": false
+    },
+    {
+      "id": "f20a4b18-34e3-482b-84f8-ccb24c68bed5",
+      "name": "Daily Volume I",
+      "slug": "casual-tan-AcbmXi",
+      "slugId": "v5RoWRB78UA6",
+      "latestSlug": "daily-volume-i",
+      "statement": "-- forked from NEP245 - Net Chain Mint Volume, over time @ https://flipsidecrypto.xyz/studio/queries/b93dd1a6-4386-4c6c-80dc-be2ae64d4765\nwith source_data AS (\n  SELECT\n    *\n  from\n    near.defi.ez_intents\n  where\n    log_event = 'mt_transfer'\n  \n  -- there are multiple transfers per receipt as the intent is solved\n  qualify(row_number() over (partition by receipt_id order by block_id desc, amount_usd is not null desc) = 1)\n)\nselect\n  date_trunc('day', block_timestamp) as _date,\n  sum(zeroifnull(amount_usd)) as gross_amount_usd\nfrom\n  source_data\ngroup by\n  1\norder by\n  1\n",
+      "ttlMinutes": 0,
+      "lastQueryRunId": null,
+      "lastSuccessfulQueryRunId": null,
+      "lastExecutedCompassId": "cmc9f8cdh5qt0akpgfdyqgt3g",
+      "lastSuccessfulCompassId": "cmc9f8cdh5qt0akpgfdyqgt3g",
+      "executionEngine": "compass",
+      "queryCollectionId": "31f14f01-64a7-4696-9099-292b6dbf514f",
+      "parentQueryId": null,
+      "forkedFromId": null,
+      "resultLastAccessedAt": "2025-07-08T04:55:03.344Z",
+      "lastSuccessfulExecutionAt": "2025-06-23T18:19:40.535Z",
+      "createdById": "7d1eba10-7543-4a0a-aadd-c59ea717d688",
+      "updatedById": "7d1eba10-7543-4a0a-aadd-c59ea717d688",
+      "createdAt": "2025-05-21T15:21:43.856Z",
+      "updatedAt": "2025-05-28T19:45:37.377Z",
+      "visualizations": [],
+      "parameters": [],
+      "meta": {},
+      "tables": [
+        "near.defi.ez_intents"
+      ],
+      "functions": [],
+      "lastOpenedAt": "2025-07-07T22:12:39.021Z",
+      "lastSavedAt": "2025-05-28T19:45:37.377Z",
+      "profileId": "81a2d1aa-24d0-415d-9a9e-8fdffad04129",
+      "visibility": "public",
+      "domainType": "Query",
+      "hasJsonEndpointAccess": false
+    },
+    {
+      "id": "fbd560f8-8163-4bd1-bda2-40739f6ae453",
+      "name": "DIP4 Logs - token_diff Count Metrics",
+      "slug": "gastric-salmon-p2Fce9",
+      "slugId": "wwpwISGnCsyk",
+      "latestSlug": "dip4-logs---token_diff-count-metrics",
+      "statement": "with dip4_logs as (\n  select\n    block_timestamp,\n    tx_hash,\n    receipt_id,\n    predecessor_id,\n    signer_id,\n    receiver_id,\n    coalesce(\n      try_parse_json(clean_log) :data[0] :account_id :: string,\n      try_parse_json(clean_log) :data :account_id :: string\n    ) as participant_address,\n    coalesce(\n      try_parse_json(clean_log) :data[0] :diff :: VARIANT,\n      try_parse_json(clean_log) :data :diff :: VARIANT\n  ) as token_diff\n  from\n    near.core.fact_logs\n  where\n    receiver_id = 'intents.near'\n    and block_timestamp >= '2024-11-01'\n    and try_parse_json(clean_log) :standard :: STRING = 'dip4'\n    and try_parse_json(clean_log) :event :: STRING = 'token_diff'\n),\ncount_agg as (\nselect\n  date_trunc('day', block_timestamp) :: date as date,\n  count(distinct tx_hash) as tx_ct,\n  count(distinct receipt_id) as receipt_ct,\n  count(distinct participant_address) as participants_ct\nfrom\n  dip4_logs\ngroup by\n  1\n)\nselect\n  date,\n  tx_ct,\n  -- Cumulative Counts\n  sum(tx_ct) over (order by date) as tx_ct_cum,\n  receipt_ct,\n  sum(receipt_ct) over (order by date) as receipt_ct_cum,\n  participants_ct,\n  sum(participants_ct) over (order by date) as participants_ct_cum,\n  -- 7-Day Moving Averages\n  avg(tx_ct) over (\n    order by date\n    rows between 6 preceding and current row\n  ) as tx_ct_ma7,\n  avg(receipt_ct) over (\n    order by date\n    rows between 6 preceding and current row\n  ) as receipt_ct_ma7,\n  avg(participants_ct) over (\n    order by date\n    rows between 6 preceding and current row\n  ) as participants_ct_ma7\nfrom count_agg\norder by 1",
+      "ttlMinutes": 1440,
+      "lastQueryRunId": null,
+      "lastSuccessfulQueryRunId": null,
+      "lastExecutedCompassId": "cmct75qjg1pn9tvluvkcg23nc",
+      "lastSuccessfulCompassId": "cmct75qjg1pn9tvluvkcg23nc",
+      "executionEngine": "compass",
+      "queryCollectionId": "31f14f01-64a7-4696-9099-292b6dbf514f",
+      "parentQueryId": null,
+      "forkedFromId": null,
+      "resultLastAccessedAt": "2025-07-08T04:55:03.945Z",
+      "lastSuccessfulExecutionAt": "2025-07-07T14:44:06.612Z",
+      "createdById": "c2b1b171-ea4f-4a47-ab74-dd1f22acb6e6",
+      "updatedById": "c2b1b171-ea4f-4a47-ab74-dd1f22acb6e6",
+      "createdAt": "2024-11-26T22:00:18.368Z",
+      "updatedAt": "2025-04-04T20:33:22.452Z",
+      "visualizations": [],
+      "parameters": [],
+      "meta": {},
+      "tables": [
+        "near.core.fact_logs"
+      ],
+      "functions": [],
+      "lastOpenedAt": "2025-05-21T16:29:15.839Z",
+      "lastSavedAt": "2025-04-04T20:33:22.452Z",
+      "profileId": "81a2d1aa-24d0-415d-9a9e-8fdffad04129",
+      "visibility": "public",
+      "domainType": "Query",
+      "hasJsonEndpointAccess": false
+    }
+  ],
+  "profileId": "81a2d1aa-24d0-415d-9a9e-8fdffad04129",
+  "visibility": "public",
+  "domainType": "Dashboard",
+  "tags": [],
+  "version": "3"
+}

@@ -5,3 +5,4 @@ CLAUDE.md
 outputs/
 test_run.py
 .venv/
+*__pycache__/
