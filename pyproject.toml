@@ -1,6 +1,6 @@
 [project]
 name = "dashboard-dl"
-version = "0.2.1"
+version = "0.2.2"
 description = "Python tool to download and preserve Flipside Crypto Data Studio dashboards"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -8,6 +8,7 @@ dependencies = [
     "beautifulsoup4>=4.13.4",
     "click>=8.2.1",
     "requests>=2.32.4",
+    "tqdm>=4.66.0",
 ]
 
 [project.scripts]

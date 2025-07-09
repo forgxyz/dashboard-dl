@@ -7,6 +7,7 @@ from pathlib import Path
 from urllib.parse import urljoin
 from bs4 import BeautifulSoup
 from typing import Dict, List, Optional, Any
+from tqdm import tqdm
 
 
 class DashboardDownloader:
@@ -18,52 +19,86 @@ class DashboardDownloader:
         self.session.headers.update({
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
         })
+        self.progress_bar = None
     
     def log(self, message: str):
         """Log message if verbose mode is enabled"""
         if self.verbose:
             print(f"[INFO] {message}")
     
+    def _init_progress_bar(self, total_steps: int, desc: str = "Processing"):
+        """Initialize progress bar for non-verbose mode"""
+        if not self.verbose:
+            self.progress_bar = tqdm(total=total_steps, desc=desc, unit="step")
+    
+    def _update_progress(self, step_name: str = ""):
+        """Update progress bar with step name"""
+        if not self.verbose and self.progress_bar:
+            if step_name:
+                self.progress_bar.set_description(f"{step_name}")
+            self.progress_bar.update(1)
+    
+    def _close_progress_bar(self):
+        """Close progress bar"""
+        if not self.verbose and self.progress_bar:
+            self.progress_bar.close()
+            self.progress_bar = None
+    
     def download(self, url: str, output_dir: str = './outputs') -> str:
         """Download and process a dashboard from the given URL. Artifacts are placed in the outputs directory by default."""
         self.log(f"Starting download from {url}")
         
-        # Use default outputs directory if output_dir is None or empty
-        if not output_dir:
-            output_dir = './outputs'
+        # Initialize progress bar with main steps
+        self._init_progress_bar(8, "Downloading dashboard")
         
-        # Extract dashboard slug from URL
-        slug = self._extract_slug(url)
-        if not slug:
-            raise ValueError("Could not extract dashboard slug from URL")
-        
-        # Create output directory
-        dashboard_dir = Path(output_dir) / slug
-        dashboard_dir.mkdir(parents=True, exist_ok=True)
-        self.log(f"Created output directory: {dashboard_dir}")
-        
-        # Download and parse main dashboard page
-        html_content = self._fetch_page(url)
-        soup = BeautifulSoup(html_content, 'html.parser')
-        
-        # Extract dashboard metadata
-        metadata = self._extract_metadata(soup, url)
-        
-        # Create subdirectories
-        assets_dir = dashboard_dir / "assets"
-        assets_dir.mkdir(exist_ok=True)
-        
-        # Extract and save visualizations and text blocks
-        visualizations, text_blocks = self._extract_visualizations(soup, assets_dir)
-        
-        # Generate descriptive markdown
-        self._generate_markdown(metadata, visualizations, text_blocks, dashboard_dir)
-        
-        # Generate metadata.json artifact
-        self._generate_json_artifact(metadata, visualizations, text_blocks, dashboard_dir)
-        
-        self.log("Download completed successfully")
-        return str(dashboard_dir)
+        try:
+            # Use default outputs directory if output_dir is None or empty
+            if not output_dir:
+                output_dir = './outputs'
+            
+            # Extract dashboard slug from URL
+            self._update_progress("Extracting dashboard slug")
+            slug = self._extract_slug(url)
+            if not slug:
+                raise ValueError("Could not extract dashboard slug from URL")
+            
+            # Create output directory
+            self._update_progress("Creating output directory")
+            dashboard_dir = Path(output_dir) / slug
+            dashboard_dir.mkdir(parents=True, exist_ok=True)
+            self.log(f"Created output directory: {dashboard_dir}")
+            
+            # Download and parse main dashboard page
+            self._update_progress("Fetching dashboard page")
+            html_content = self._fetch_page(url)
+            soup = BeautifulSoup(html_content, 'html.parser')
+            
+            # Extract dashboard metadata
+            self._update_progress("Extracting metadata")
+            metadata = self._extract_metadata(soup, url)
+            
+            # Create subdirectories
+            self._update_progress("Creating subdirectories")
+            assets_dir = dashboard_dir / "assets"
+            assets_dir.mkdir(exist_ok=True)
+            
+            # Extract and save visualizations and text blocks
+            self._update_progress("Extracting visualizations")
+            visualizations, text_blocks = self._extract_visualizations(soup, assets_dir)
+            
+            # Generate descriptive markdown
+            self._update_progress("Generating markdown")
+            self._generate_markdown(metadata, visualizations, text_blocks, dashboard_dir)
+            
+            # Generate metadata.json artifact
+            self._update_progress("Generating metadata")
+            self._generate_json_artifact(metadata, visualizations, text_blocks, dashboard_dir)
+            
+            self.log("Download completed successfully")
+            return str(dashboard_dir)
+            
+        finally:
+            self._close_progress_bar()
     
     def _extract_slug(self, url: str) -> Optional[str]:
         """Extract dashboard slug from URL"""
@@ -1325,7 +1360,7 @@ class DashboardDownloader:
                 "abstract": metadata.get('abstract'),
                 "author": metadata.get('author'),
                 "tags": metadata.get('tags', []),
-                "generated_at": datetime.datetime.utcnow().isoformat() + "Z",
+                "generated_at": datetime.datetime.now(datetime.timezone.utc).isoformat().replace('+00:00', 'Z'),
                 "total_charts": len(visualizations),
                 "unique_queries": len(set(viz.get('query_id') for viz in visualizations if viz.get('query_id'))),
                 "total_text_blocks": len(text_blocks)
